@@ -1,6 +1,5 @@
 const nodemailer = require('nodemailer');
-const { activateTemplate } = require('./mailTemplate/activate');
-module.exports = async function mail(full_name, email, activation_url, template_type) {
+module.exports = async function mail(full_name, email) {
 
   let transporter = nodemailer.createTransport(
     {
@@ -21,13 +20,7 @@ module.exports = async function mail(full_name, email, activation_url, template_
       }
     }
   );
-  let htmlTemplate = ''
-  if (template_type === "accountActivation") {
-    htmlTemplate = activateTemplate(full_name, activation_url)
-  }
-  else {
-
-  }
+  let htmlTemplate = 'Hello hi'
 
   let message = {
     to: `${full_name} <${email}>`,

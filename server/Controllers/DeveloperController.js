@@ -1,23 +1,38 @@
 const Developer = require('../Models/DeveloperModel')
-const Token = require('../Models/TokenModel')
-const queryString = require('querystring')
 const bcrypt = require('bcrypt')
-const mail = require('../functions/mail')
+const jwt = require('jsonwebtoken')
+const authpasskey = process.env.AUTH_PASS_KEY
 
 exports.userRegister = (req, res) => {
   const { full_name, email, password } = req.body
   var hashpass = bcrypt.hashSync(password, 8)
-  Developer.create({ full_name, email, password: hashpass, isActive: false }, (err, result) => {
-    console.log(err, result)
-    if (err) res.send(`RegistrationErr: ${err}`)
+  Developer.create({ full_name, email, password: hashpass }, (err, result) => {
+    if (err) res.status(501).send(`RegistrationErr: ${err}`)
     else if (result) {
-      var token = Math.random().toString(36).substr(2);
-      Token.create({ token, email, role: 'Developer' }, async (err1, result1) => {
-        var sentMail = mail(full_name, email, `${req.get('origin')}/Developer/${token}` , 'accountActivation')
-        console.log(sentMail)
-        res.send('Activation link sent to your email account. Check mail!')
-      })
+      res.status(200).send(`Registration Successful!`)
     }
-    else res.send(400)
+    else res.status(502).send('Something went wrong!')
+  })
+}
+exports.userLogin = (req, res) => {
+  const { email, password } = req.body
+  Developer.find({ email }, (docerr, doc) => {
+    if (doc) {
+      if (bcrypt.compareSync(password, doc.password)) {
+        jwt.sign({
+          data: email
+        }, authpasskey, { expiresIn: '1h' }, (autherr, authtoken) => {
+          if (authtoken) {
+            res.status(200).json({ authtoken })
+          }
+        })
+      }
+      else {
+        res.status(501).send('Password doesn\'t match')
+      }
+    }
+    else {
+      res.status(404).send('Something went wrong!')
+    }
   })
 }
