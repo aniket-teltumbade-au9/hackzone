@@ -1,0 +1,64 @@
+const Problem = require('../Models/ProblemModel')
+var tmp = require('tmp');
+var fs = require('fs');
+const scriptExecutor = require('../functions/scriptExecutor');
+
+exports.add = (req, res) => {
+  Problem.create(req.body, (err, result) => {
+    if (err) res.send(err)
+    res.send(result)
+  })
+}
+exports.list = (req, res) => {
+  let limit = req.query.page ? parseInt(req.query.page) * 10 + 10 : 10
+  let skip = req.query.page ? parseInt(req.query.page) * 10 : 0
+  Problem.find().skip(skip).limit(limit).exec((err, result) => {
+    if (err) res.send(err)
+    res.send(result)
+  })
+}
+
+exports.single = (req, res) => {
+  let { name } = req.params
+  Problem.findOne({ name }, (err, result) => {
+    if (err) res.send(err)
+    res.send(result)
+  })
+}
+exports.run = (req, res) => {
+  let { language, code, samples } = req.body
+  let ext = language === "python" ? ".py" : language === "javascript" ? ".js" : null
+  let command = language === "python" ? "python" : language === "javascript" ? "node" : null
+  var output = new Array()
+  var output_error = ''
+  var passed = 0
+  var failed = samples.length
+
+  tmp.file({ prefix: 'projectA-', postfix: ext, keep: true }, function (err, path, fd, cleanupCallback) {
+    if (err) res.send(err);
+    fs.writeFileSync(path, code)
+    for (i = 0; i < samples.length; i++) {
+
+      let response = scriptExecutor(command, path, samples[i].sample_input)
+      if (response.message) {
+        let status = response.message === samples[i].sample_output
+        if (status) {
+          passed++
+          failed--
+        }
+        response = { ...response, status, input: samples[i].sample_input, expected: samples[i].sample_output, output: response.message }
+        output.push(response)
+      }
+      else {
+        output_error = response.error
+      }
+    }
+    if (output_error != '') {
+      let msg1 = output_error.split(path.substring(0, path.length - 3)).join("Solution");
+      res.send({ error: msg1 })
+    }
+    else {
+      res.send({ output, passed, failed })
+    }
+  });
+}
