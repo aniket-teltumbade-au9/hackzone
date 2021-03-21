@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
-import developerReducer from './reducers/developerReducer'
+import authReducer from './reducers/authReducer'
 import problemReducer from './reducers/problemReducer'
 
 let rootReducer = combineReducers({
   problemState: problemReducer,
-  developerState: developerReducer
+  authState: authReducer
 })
 export default rootReducer

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import illustration from '../assets/images/3661726.svg'
 import '../assets/css/color.scss'
 import '../assets/css/LandingPage.scss'
-import Modal from '../components/Modal'
+import AuthModal from '../components/AuthModal'
 import { Link } from 'react-router-dom'
 import AuthTab from '../components/AuthTab'
 
@@ -60,40 +60,40 @@ export class LandingPage extends Component {
   render() {
     return (
       <>
-        { this.state.isUserOpen && (<Modal closeModal={()=>this.handleClose('User')} >
+        { this.state.isUserOpen && (<AuthModal closeModal={() => this.handleClose('User')} >
           <AuthTab
             tab_one='Sign Up'
             tab_two='Login'
             tab_three='User'
-             />
-        </Modal>)}
-        { this.state.isAdminOpen && (<Modal closeModal={()=>this.handleClose('Admin')} >
+          />
+        </AuthModal>)}
+        { this.state.isAdminOpen && (<AuthModal closeModal={() => this.handleClose('Admin')} >
           <AuthTab
             tab_one='Sign Up'
             tab_two='Login'
             tab_three='Admin'
-             />
-        </Modal>)}
-        { this.state.isLoginOpen && (<Modal closeModal={()=>this.handleClose('Login')} >
+          />
+        </AuthModal>)}
+        { this.state.isLoginOpen && (<AuthModal closeModal={() => this.handleClose('Login')} >
           <AuthTab
             tab_one='Developer'
             tab_two='Company'
             tab_three='Signin'
-             />
-        </Modal>)}
-        { this.state.isSignupOpen && (<Modal closeModal={()=>this.handleClose('Signup')} >
+          />
+        </AuthModal>)}
+        { this.state.isSignupOpen && (<AuthModal closeModal={() => this.handleClose('Signup')} >
           <AuthTab
             tab_one='Developer'
             tab_two='Company'
             tab_three='Register'
-            />
-        </Modal>)}
+          />
+        </AuthModal>)}
         <div className="container-fluid LandingPage" style={{ height: "15vh" }}>
           <div className="row d-flex justify-content-between align-items-center" style={{ height: "100%" }}>
             <div className="col-12 col-md-3 ml-5"><h5>Hackerrankz</h5></div>
             <div className="col-12 col-md-5">
-              <button className="btn btn-hack m-2 px-5" onClick={()=>this.handleOpen('Login')}>Login</button>
-              <button className="btn btn-outline-hack m-2 px-5" onClick={()=>this.handleOpen('Signup')}>Sign Up</button>
+              <button className="btn btn-hack m-2 px-5" onClick={() => this.handleOpen('Login')}>Login</button>
+              <button className="btn btn-outline-hack m-2 px-5" onClick={() => this.handleOpen('Signup')}>Sign Up</button>
             </div>
           </div>
           <div className="row d-flex justify-content-end align-items-center  flex-wrap-reverse" style={{ minHeight: "70vh" }}>
@@ -101,7 +101,7 @@ export class LandingPage extends Component {
               <h4>Matching developers with great companies</h4>
               <div className="row">
                 <div className="col-12 col-md-6 my-3">
-                  <Link style={{ color: "inherit", height: "100%" }} className="action d-flex flex-column justify-content-between"onClick={()=>this.handleOpen('Admin')}>
+                  <Link style={{ color: "inherit", height: "100%" }} className="action d-flex flex-column justify-content-between" onClick={() => this.handleOpen('Admin')}>
                     <div className="w-100">
                       <h5><strong>For Companies</strong></h5>
                     </div>
@@ -114,7 +114,7 @@ export class LandingPage extends Component {
                   </Link>
                 </div>
                 <div className="col-12 col-md-6 my-3">
-                  <Link style={{ color: "inherit", height: "100%" }} className="action d-flex flex-column justify-content-between" onClick={()=>this.handleOpen('User')}>
+                  <Link style={{ color: "inherit", height: "100%" }} className="action d-flex flex-column justify-content-between" onClick={() => this.handleOpen('User')}>
                     <div className="w-100">
                       <h5><strong>For Developers</strong></h5>
                     </div>

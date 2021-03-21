@@ -8,7 +8,7 @@ const CompanySchema = new Schema({
   full_name: { type: String, required: true },
   phone_number: { type: String, required: true },
   company: { type: String, required: true },
-  company_size: { type: Number, required: true },
+  company_size: { type: String, required: true },
   country: { type: String, required: true },
   role: { type: String, required: true },
   isActive: { type: Boolean, default: false },

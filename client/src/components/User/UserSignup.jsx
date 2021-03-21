@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { devRegister } from '../../redux/actions/developerActions'
+import { devRegister } from '../../redux/actions/authActions'
 
 class UserSignup extends Component {
   state = {
@@ -72,7 +72,7 @@ class UserSignup extends Component {
 }
 
 const mapStateToProps = (storeState) => {
-  return { registerMsg: storeState.developerState.userRegister }
+  return { registerMsg: storeState.authState }
 }
 
 

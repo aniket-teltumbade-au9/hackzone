@@ -1,7 +1,7 @@
 import React from 'react';
 import '../assets/css/modal.scss';
 
-const Modal = (props) => {
+const AuthModal = (props) => {
   const { closeModal } = props;
 
   const closeicon = () => (
@@ -32,4 +32,4 @@ const Modal = (props) => {
 };
 
 
-export default Modal;
+export default AuthModal;
