@@ -19,6 +19,7 @@ exports.userLogin = (req, res) => {
   Developer.find({ email }, (docerr, doc) => {
     console.log(doc)
     if (docerr) {
+      console.log(doc)
       res.status(402).json({ err: docerr })
     }
     else if (doc) {

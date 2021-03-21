@@ -10,8 +10,7 @@ const CompanySchema = new Schema({
   company: { type: String, required: true },
   company_size: { type: String, required: true },
   country: { type: String, required: true },
-  role: { type: String, required: true },
-  isActive: { type: Boolean, default: false },
+  role: { type: String, required: true }
 }, { timestamps: true })
 
 const CompanyModel = mongoose.model('company', CompanySchema)

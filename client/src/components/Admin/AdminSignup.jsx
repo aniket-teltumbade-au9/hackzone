@@ -20,13 +20,12 @@ class AdminSignup extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault()
-
     this.props.compRegister(this.state)
     e.target.reset()
   }
   render() {
     return (
-      <div className="col-12 overflow-auto" style={{ minHeight: "70vh", maxHeight: '80vh' }}>
+      <div className="col-12 overflow-auto" id="admin-register" style={{ minHeight: "70vh", maxHeight: '80vh' }}>
         <form className="row" onSubmit={this.handleSubmit} >
           <div className="col-md-6 m-0">
             <div className="form-group  ">

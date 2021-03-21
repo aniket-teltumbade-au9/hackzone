@@ -5,9 +5,11 @@ const authpasskey = process.env.AUTH_PASS_KEY
 
 exports.adminRegister = (req, res) => {
   const { email, password, full_name, phone_number, company, company_size, country, role } = req.body
-  let hashpass = bcrypt.hashSync(password, 'Hellmancandy')
+  let hashpass = bcrypt.hashSync(password, 8)
   Company.create({ email, password: hashpass, full_name, phone_number, company, company_size, country, role }, (err, result) => {
-    if (err) res.status(501).send({ msg: `RegistrationErr: ${err}` })
+    if (err) {
+      res.status(501).send({ msg: `RegistrationErr: ${err}` })
+    }
     else if (result) {
       res.status(200).send({ msg: `Registration Successful!` })
     }
@@ -18,13 +20,18 @@ exports.adminRegister = (req, res) => {
 exports.adminLogin = (req, res) => {
   const { email, password } = req.body
   Company.find({ email }, (docerr, doc) => {
-    if (doc) {
-      if (bcrypt.compareSync(password, doc.password)) {
+    console.log(doc)
+    if (docerr) {
+      console.log(doc)
+      res.status(402).json({ err: docerr })
+    }
+    else if (doc) {
+      if (bcrypt.compareSync(password, doc[0].password)) {
         jwt.sign({
           data: email
         }, authpasskey, { expiresIn: '1h' }, (autherr, authtoken) => {
           if (authtoken) {
-            res.status(200).json({ authtoken, msg: 'Authentication successful!' })
+            res.status(200).json({ authtoken })
           }
         })
       }

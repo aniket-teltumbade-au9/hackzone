@@ -21,3 +21,21 @@
 .login a {
   color: #000;
 }
+.hz-link {
+  color: white;
+  text-decoration: none;
+}
+.hz-link:hover {
+  text-shadow: 1px 1px 1px purple;
+  text-decoration: none;
+}
+.hz-toogle {
+  filter: invert(100%);
+}
+.hz-mobile-menu {
+  height: calc(100vh - 60px);
+  &-item{
+    font-size: 1.2em;
+    font-weight: 700;
+  }
+}

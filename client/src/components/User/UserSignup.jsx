@@ -22,7 +22,7 @@ class UserSignup extends Component {
     return (
 
       <div className="col-12" style={{ minHeight: "70vh" }}>
-        <form className="form-group" onSubmit={this.handleSubmit} >
+        <form className="form-group" id="user-register" onSubmit={this.handleSubmit} >
           <div className="input-group my-4 bg-hacktone">
             <div className="input-group-prepend  ">
               <span className="input-group-text bg-transparent  fas fa-user"></span>

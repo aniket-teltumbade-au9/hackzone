@@ -16,7 +16,6 @@ class UserLogin extends Component {
   }
   handleLoginSubmit = (e) => {
     e.preventDefault()
-    
     this.props.devLogin(this.state)
     e.target.reset()
   }
@@ -25,7 +24,7 @@ class UserLogin extends Component {
 
       <div className="col-12" style={{ minHeight: "70vh" }}>
 
-        <form className="form-group" onSubmit={this.handleLoginSubmit} >
+        <form className="form-group" id="user-login" onSubmit={this.handleLoginSubmit} >
           <div className="input-group my-4 bg-hacktone">
             <div className="input-group-prepend  ">
               <span className="input-group-text bg-transparent  fas fa-user"></span>
@@ -60,7 +59,7 @@ class UserLogin extends Component {
                 type="checkbox"
                 value=""
                 id="flexCheckChecked" />
-              <label className="form-check-label" for="flexCheckChecked">
+              <label className="form-check-label" htmlFor="flexCheckChecked">
                 Remember password
                 </label>
             </div>
