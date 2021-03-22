@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import parse from 'html-react-parser';
 import Editor from "@monaco-editor/react";
 import { runProgram, singleProblem } from '../../redux/actions/problemActions'
-import Output from '../../components/Output';
+import Output from '../../components/User/Challenge/Output';
 
 class SingleProblemPage extends Component {
   state = {

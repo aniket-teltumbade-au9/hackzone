@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import '../assets/css/color.scss'
-import menu from '../assets/svg/hamburger.svg'
-import close from '../assets/svg/close.svg'
+import '../../../assets/css/color.scss'
+import menu from '../../../assets/svg/hamburger.svg'
+import close from '../../../assets/svg/close.svg'
 
 function Navbar(props) {
 
@@ -13,7 +13,7 @@ function Navbar(props) {
       <nav className="text-light bg-hacktone">
         <div className="w-100 d-flex justify-content-between align-items-center">
           <div className="navbar col-md-7">
-            <span className="navbar-brand mb-0 h1">Navbar</span>
+            <span className="navbar-brand mb-0 h1">HackerZone</span>
             {toggle === true ?
               <button className="btn btn-hack d-sm-block d-md-none">
                 <img className="hz-toogle" src={close} onClick={() => setToggle(false)} height="30" width="30" alt="close" />

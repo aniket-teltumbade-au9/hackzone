@@ -8,7 +8,8 @@ import { connect } from 'react-redux'
 import { isAuthenticated, logout } from './redux/actions/authActions';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import UserDashboard from './pages/User/UserDashboard';
-import Navbar from './components/Navbar';
+import Navbar from './components/User/Layout/Navbar';
+import Sidebar from './components/Admin/Layout/Sidebar';
 
 class App extends Component {
   componentDidMount = () => {
@@ -33,7 +34,6 @@ class App extends Component {
                 <Navbar userData={this.props.authDetails.userProfile} handleLogout={this.Logout} />
                 <Switch>
                   <Route exact path='/challenge/single/:name' component={SingleProblemPage} />
-                  <Route exact path='/challenge/add' component={GenerateProblemPage} />
                   <Route exact path='/challenge/list' component={ProblemsPage} />
                   <Route exact path='/' component={UserDashboard} />
                 </Switch>
@@ -41,12 +41,12 @@ class App extends Component {
             </>
           ) : (
             <BrowserRouter>
-              <Switch>
-                <Route exact path='/challenge/single/:name' component={SingleProblemPage} />
-                <Route exact path='/challenge/add' component={GenerateProblemPage} />
-                <Route exact path='/challenge/list' component={ProblemsPage} />
-                <Route exact path='/' component={AdminDashboard} />
-              </Switch>
+              <Sidebar userData={this.props.authDetails.userProfile} handleLogout={this.Logout} >
+                <Switch>
+                  <Route exact path='/challenge/add' component={GenerateProblemPage} />
+                  <Route exact path='/' component={AdminDashboard} />
+                </Switch>
+              </Sidebar>
             </BrowserRouter>
           )
         ) : (

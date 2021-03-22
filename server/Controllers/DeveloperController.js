@@ -17,9 +17,7 @@ exports.userRegister = (req, res) => {
 exports.userLogin = (req, res) => {
   const { email, password } = req.body
   Developer.find({ email }, (docerr, doc) => {
-    console.log(doc)
     if (docerr) {
-      console.log(doc)
       res.status(402).json({ err: docerr })
     }
     else if (doc) {

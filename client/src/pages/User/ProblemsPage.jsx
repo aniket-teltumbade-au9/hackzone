@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { allProblems } from '../../redux/actions/problemActions'
-import ChallengeSnippet from '../../components/ChallengeSnippet'
+import ChallengeSnippet from '../../components/User/Challenge/ChallengeSnippet'
 
 class ProblemsPage extends Component {
   componentDidMount = () => {
@@ -13,7 +13,7 @@ class ProblemsPage extends Component {
       <>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-md-8">
+            <div className="col-12">
               <h6 className="display-6 pl-0 pr-3 pt-3 pb-1"><strong>Challenges</strong></h6>
               {this.props.problems ?
                 this.props.problems.map((el) => {

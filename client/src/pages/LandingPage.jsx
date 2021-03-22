@@ -90,7 +90,7 @@ export class LandingPage extends Component {
         </AuthModal>)}
         <div className="container-fluid LandingPage" style={{ height: "15vh" }}>
           <div className="row d-flex justify-content-between align-items-center" style={{ height: "100%" }}>
-            <div className="col-12 col-md-3 ml-5"><h5>Hackerrankz</h5></div>
+            <div className="col-12 col-md-3 ml-5"><h5>HackerZone</h5></div>
             <div className="col-12 col-md-5">
               <button className="btn btn-hack m-2 px-5" onClick={() => this.handleOpen('Login')}>Login</button>
               <button className="btn btn-outline-hack m-2 px-5" onClick={() => this.handleOpen('Signup')}>Sign Up</button>
