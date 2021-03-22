@@ -4,7 +4,8 @@ var fs = require('fs');
 const scriptExecutor = require('../functions/scriptExecutor');
 
 exports.add = (req, res) => {
-  Problem.create(req.body, (err, result) => {
+  let { email } = req
+  Problem.create({ ...req.body, createdBy: email }, (err, result) => {
     if (err) res.send(err)
     res.send(result)
   })

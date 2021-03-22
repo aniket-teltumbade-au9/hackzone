@@ -1,45 +1,24 @@
 import axios from "axios";
-import { PROBLEM_LIST, RUN_PROBLEM, SINGLE_PROBLEM } from "../actionTypes"
+import { ADD_PROBLEM, RUN_PROBLEM } from "../actionTypes"
 
-export const allProblems = () => (dispatch) => {
+export const addChallenge=(body) => async (dispatch) => {
   var config = {
-    method: 'get',
-    url: `${process.env.REACT_APP_API_URL}/problem/all`,
-    headers: {}
+    method: 'post',
+    url: `${process.env.REACT_APP_API_URL}/problem/create`,
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': localStorage.getItem('token')
+    },
+    data: JSON.stringify(body)
   };
 
-  axios(config)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-      dispatch({
-        type: PROBLEM_LIST,
-        payload: response.data
-      })
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  let res = await axios(config)
+  dispatch({
+    type: ADD_PROBLEM,
+    payload: res
+  })
 }
-export const singleProblem = (name) => (dispatch) => {
-  var config = {
-    method: 'get',
-    url: `${process.env.REACT_APP_API_URL}/problem/single/${name.replace(/-/g, " ")}`,
-    headers: {}
-  };
 
-  axios(config)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-      dispatch({
-        type: SINGLE_PROBLEM,
-        payload: response.data
-      })
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-}
 export const runProgram = (language, code, samples, name) => async (dispatch) => {
   var config = {
     method: 'post',

@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import illustration from '../assets/images/3661726.svg'
 import '../assets/css/color.scss'
 import '../assets/css/LandingPage.scss'
-import AuthModal from '../components/AuthModal'
+import AuthModal from '../components/Layout/AuthModal'
 import { Link } from 'react-router-dom'
-import AuthTab from '../components/AuthTab'
+import AuthTab from '../components/Layout/AuthTab'
 
 export class LandingPage extends Component {
   state = {

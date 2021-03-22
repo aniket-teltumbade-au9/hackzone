@@ -5,7 +5,7 @@ export const devRegister = (body) => async (dispatch) => {
   const data = JSON.stringify(body)
   const config = {
     method: 'post',
-    url: 'http://localhost:4000/user/register',
+    url: `${process.env.REACT_APP_API_URL}/user/register`,
     headers: {
       'Content-Type': 'application/json'
     },
@@ -24,7 +24,7 @@ export const devLogin = (body) => async (dispatch) => {
   const data = JSON.stringify(body)
   const config = {
     method: 'post',
-    url: 'http://localhost:4000/user/login',
+    url: `${process.env.REACT_APP_API_URL}/user/login`,
     headers: {
       'Content-Type': 'application/json'
     },
@@ -52,7 +52,7 @@ export const compRegister = (body) => async (dispatch) => {
   const data = JSON.stringify(body)
   const config = {
     method: 'post',
-    url: 'http://localhost:4000/admin/register',
+    url: `${process.env.REACT_APP_API_URL}/admin/register`,
     headers: {
       'Content-Type': 'application/json'
     },
@@ -73,7 +73,7 @@ export const compLogin = (body) => async (dispatch) => {
   const data = JSON.stringify(body)
   const config = {
     method: 'post',
-    url: 'http://localhost:4000/admin/login',
+    url: `${process.env.REACT_APP_API_URL}/admin/login`,
     headers: {
       'Content-Type': 'application/json'
     },
@@ -103,7 +103,7 @@ export const isAuthenticated = () => async (dispatch) => {
     if (localStorage.getItem('role') === 'developer') {
       const config = {
         method: 'get',
-        url: 'http://localhost:4000/user/profile',
+        url: `${process.env.REACT_APP_API_URL}/user/profile`,
         headers: {
           'Content-Type': 'application/json',
           'x-access-token': localStorage.getItem('token')
@@ -128,7 +128,7 @@ export const isAuthenticated = () => async (dispatch) => {
     else if(localStorage.getItem('role') === 'company') {
       const config = {
         method: 'get',
-        url: 'http://localhost:4000/admin/profile',
+        url: `${process.env.REACT_APP_API_URL}/admin/profile`,
         headers: {
           'Content-Type': 'application/json',
           'x-access-token': localStorage.getItem('token')

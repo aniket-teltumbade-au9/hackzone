@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import '../assets/css/color.scss'
+import '../../assets/css/color.scss'
 import { Link } from 'react-router-dom'
-import AdminLogin from './Admin/AdminLogin'
-import AdminSignup from './Admin/AdminSignup'
-import UserSignup from './User/UserSignup'
-import UserLogin from './User/UserLogin'
+import AdminLogin from '../Admin/AdminLogin'
+import AdminSignup from '../Admin/AdminSignup'
+import UserSignup from '../User/UserSignup'
+import UserLogin from '../User/UserLogin'
 
 export default function AuthTab(props) {
   var [tab, setTab] = useState(0)

@@ -1,8 +1,4 @@
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import GenerateProblemPage from './pages/Admin/GenerateProblemPage';
-import LandingPage from './pages/LandingPage';
-import SingleProblemPage from './pages/User/SingleProblemPage';
-import ProblemsPage from './pages/User/ProblemsPage';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { isAuthenticated, logout } from './redux/actions/authActions';
@@ -10,6 +6,10 @@ import AdminDashboard from './pages/Admin/AdminDashboard';
 import UserDashboard from './pages/User/UserDashboard';
 import Navbar from './components/User/Layout/Navbar';
 import Sidebar from './components/Admin/Layout/Sidebar';
+import LandingPage from './pages/LandingPage';
+import PAGE404 from './pages/PAGE404';
+import CreateTest from './pages/Admin/CreateTest';
+import CreateChallenge from './pages/Admin/CreateChallenge';
 
 class App extends Component {
   componentDidMount = () => {
@@ -25,36 +25,50 @@ class App extends Component {
   }
   render() {
     return (
-      this.props.authDetails ? (
 
-        this.props.authDetails.isAuth === true ? (
-          this.props.authDetails.role === 'developer' ? (
-            <>
-              <BrowserRouter>
+      <BrowserRouter>
+        {
+          this.props.authDetails ? (
+
+            this.props.authDetails.isAuth === true &&
+              this.props.authDetails.role === 'developer' ? (
+              <>
                 <Navbar userData={this.props.authDetails.userProfile} handleLogout={this.Logout} />
+
                 <Switch>
-                  <Route exact path='/challenge/single/:name' component={SingleProblemPage} />
-                  <Route exact path='/challenge/list' component={ProblemsPage} />
                   <Route exact path='/' component={UserDashboard} />
+                  <Route exact path='/error' component={PAGE404} />
+                  <Redirect from="*" to='/error' />
                 </Switch>
-              </BrowserRouter>
-            </>
-          ) : (
-            <BrowserRouter>
-              <Sidebar userData={this.props.authDetails.userProfile} handleLogout={this.Logout} >
+              </>
+            ) :
+              this.props.authDetails.isAuth === true &&
+                this.props.authDetails.role === 'company' ? (
+                <Sidebar userData={this.props.authDetails.userProfile} handleLogout={this.Logout} >
+                  <Switch>
+                    <Route exact path='/challenge/add' component={CreateChallenge} />
+                    <Route exact path='/create_contest' component={CreateTest} />
+                    <Route exact path='/error' component={PAGE404} />
+                    <Route exact path='/' component={AdminDashboard} />
+                    <Redirect from="*" to='/error' />
+                  </Switch>
+                </Sidebar>
+              ) : (
                 <Switch>
-                  <Route exact path='/challenge/add' component={GenerateProblemPage} />
-                  <Route exact path='/' component={AdminDashboard} />
+                  <Route exact path='/error' component={PAGE404} />
+                  <Route exact path='/' component={LandingPage} />
+                  <Redirect from="*" to='/error' />
                 </Switch>
-              </Sidebar>
-            </BrowserRouter>
+              )
+          ) : (
+            <Switch>
+              <Route exact path='/error' component={PAGE404} />
+              <Route exact path='/' component={LandingPage} />
+              <Redirect from="*" to='/error' />
+            </Switch>
           )
-        ) : (
-          <BrowserRouter>
-            <LandingPage />
-          </BrowserRouter>
-        )
-      ) : "Loading"
+        }
+      </BrowserRouter >
     )
   }
 }

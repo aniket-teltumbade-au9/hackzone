@@ -9,11 +9,14 @@ export default function Sidebar(props) {
   return (
     <div className="container-fluid vh-100 p-0 overflow-auto mw-100 mh-100">
       <div className="d-flex flex-wrap ">
-        {sidebar ? <div className={`sidebar m-0 pl-2 pt-5 col-2 col-md-3 bg-hacktone d-flex flex-column`} style={{ minHeight: "100vh" }}>
-
-          <Link className="hz-link" to='/'>Home</Link>
-          <Link className="hz-link" to='/challenge/add'>Add problem</Link>
-          <Link className="hz-link" to='/'>Home</Link>
+        {sidebar ? <div className={`sidebar m-0 pl-2 col-2 col-md-3 bg-hacktone d-flex flex-column`} style={{ minHeight: "100vh" }}>
+          <span className="navbar-brand mt-3 h1 text-light">
+            HackerZone
+          </span>
+          <hr />
+          <Link className="hz-link my-1" to='/'>Home</Link>
+          <Link className="hz-link my-1" to='/challenge/add'>Add Challenge</Link>
+          <Link className="hz-link my-1" to='/create_contest'>Create Contest</Link>
         </div> : null}
         < div className={`m-0 p-0 ${sidebar ? "col-10 col-md-9" : "col-12"}`} >
           <div className="navbar mr-0 d-flex justify-content-between m-0 bg-hacktone text-light">
@@ -35,7 +38,7 @@ export default function Sidebar(props) {
               {props.userData ? props.userData.full_name : "Guest"}
             </button>
           </div>
-          <div className='mw-100' style={{ maxHeight: "calc(100vh - 62px)",  overflow: "scroll" }}>
+          <div className='mw-100'>
             {props.children}
           </div>
         </div>

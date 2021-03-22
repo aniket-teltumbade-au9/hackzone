@@ -1,19 +1,15 @@
-import { PROBLEM_LIST, RUN_PROBLEM, SINGLE_PROBLEM } from "../actionTypes"
+import { ADD_PROBLEM, RUN_PROBLEM } from "../actionTypes"
 
 const initialState = {
-  problems: null,
-  problem: null,
-  problem_output: null
+  problem_output: null,
+  add_problem:null
 }
 
 const problemReducer = (state = initialState, { type, payload }) => {
   switch (type) {
 
-    case PROBLEM_LIST:
-      return { ...state, problems: payload }
-
-    case SINGLE_PROBLEM:
-      return { ...state, problem: payload }
+    case ADD_PROBLEM:
+      return { ...state, add_problem: payload }
 
     case RUN_PROBLEM:
       return { ...state, problem_output: payload }

@@ -3,7 +3,6 @@ import "@fortawesome/fontawesome-free/css/all.css";
 
 function VerticalTab(props) {
   const [tab, setTab] = useState(0);
-  console.log(props);
   return (
     <>
       {props.data ? (

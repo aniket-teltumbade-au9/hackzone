@@ -1,5 +1,5 @@
 import React from 'react';
-import '../assets/css/modal.scss';
+import '../../assets/css/modal.scss';
 
 const AuthModal = (props) => {
   const { closeModal } = props;
