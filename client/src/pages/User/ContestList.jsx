@@ -4,7 +4,7 @@ import { endedContests, liveContests, upcomingContests } from '../../redux/actio
 import '../../assets/css/DisplayContestList.scss'
 import ContestItem from '../../components/User/Contest/ContestItem'
 
-class DisplayContestList extends Component {
+class ContestList extends Component {
   componentDidMount = () => {
     this.props.liveContests()
     this.props.upcomingContests()
@@ -16,12 +16,12 @@ class DisplayContestList extends Component {
     var upitems = this.props.upcomingList ? this.props.upcomingList.map(el => <ContestItem list={el} />) : null
     var endeditems = this.props.endedList ? this.props.endedList.map(el => <ContestItem list={el} />) : null
     return (
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-9">
-            <div class="main-box clearfix">
-              <div class="table-responsive">
-                <table class="my-3 table user-list">
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-9">
+            <div className="main-box clearfix">
+              <div className="table-responsive">
+                <table className="my-3 table user-list">
                   <tbody>
                     <tr>
                       <td colspan="3"> <div className="text-center w-100">Live</div> </td>
@@ -70,4 +70,4 @@ export default connect(mapStateToProps, {
   liveContests,
   upcomingContests,
   endedContests
-})(DisplayContestList)
+})(ContestList)

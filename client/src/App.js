@@ -11,7 +11,8 @@ import PAGE404 from './pages/PAGE404';
 import CreateTest from './pages/Admin/CreateTest';
 import CreateChallenge from './pages/Admin/CreateChallenge';
 import Loader from './components/Layout/Loader';
-import DisplayContestList from './pages/User/DisplayContestList';
+import ContestList from './pages/User/ContestList';
+import ContestPage from './pages/User/ContestPage';
 
 class App extends Component {
   componentDidMount = () => {
@@ -40,7 +41,8 @@ class App extends Component {
                   handleLogout={this.Logout} />
 
                 <Switch>
-                  <Route exact path='/contests' component={DisplayContestList} />
+                  <Route exact path='/contests/:name' component={ContestPage} />
+                  <Route exact path='/contests' component={ContestList} />
                   <Route exact path='/error' component={PAGE404} />
                   <Route exact path='/' component={UserDashboard} />
                   <Redirect from="*" to='/error' />

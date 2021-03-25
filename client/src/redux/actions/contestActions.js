@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ADD_CONTEST, LOAD_ENDED_CONTESTS, LOAD_LIVE_CONTESTS, LOAD_UPCOMING_CONTESTS } from "../actionTypes";
+import { ADD_CONTEST, LOAD_CONTEST, LOAD_ENDED_CONTESTS, LOAD_LIVE_CONTESTS, LOAD_UPCOMING_CONTESTS } from "../actionTypes";
 
 export const addContest = (body) => async (dispatch) => {
   console.log(body)
@@ -63,6 +63,24 @@ export const endedContests = () => async (dispatch) => {
   let res = await axios(config)
   dispatch({
     type: LOAD_ENDED_CONTESTS,
+    payload: res.data
+  })
+}
+
+export const loadContest=(body) => async (dispatch)=>{
+  console.log("hey",body)
+  var config = {
+    method: 'post',
+    url: `${process.env.REACT_APP_API_URL}/contest/contest`,
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': sessionStorage.getItem('token')
+    },
+    data: JSON.stringify(body)
+  }
+  let res = await axios(config)
+  dispatch({
+    type:LOAD_CONTEST,
     payload: res.data
   })
 }

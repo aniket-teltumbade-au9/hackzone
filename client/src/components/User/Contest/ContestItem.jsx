@@ -1,11 +1,12 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function ContestItem(props) {
   return (
     <tr>
       <td>
-        <a href="#" class="user-link">{props.list.name}</a>
-        <span class="user-subhead">{props.list.creator}</span>
+        <Link className="user-link">{props.list.name}</Link>
+        <span className="user-subhead">{props.list.creator}</span>
       </td>
       <td>
         <p> Start: {props.list.start_date}</p>
@@ -13,25 +14,18 @@ export default function ContestItem(props) {
       </td>
       <td >
 
-        <a href="#" class="table-link">
-          <span class="fa-stack">
-            <i class="fa fa-square fa-stack-2x"></i>
-            <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
+        <Link to={`/contests/${props.list.name}`} className="table-link">
+          <span className="fa fa-stack">
+            <i className="fa fa-square fa-stack-2x"></i>
+            <i className="fa fa-pen fa-stack-1x fa-inverse"></i>
           </span>
-        </a>
-        <a href="#" class="table-link">
-          <span class="fa fa-stack">
-            <i class="fa fa-square fa-stack-2x"></i>
-            <i class="fa fa-pen fa-stack-1x fa-inverse"></i>
+        </Link>
+        <Link className="table-link danger">
+          <span className="fa-stack">
+            <i className="fa fa-square fa-stack-2x"></i>
+            <i className="fa fa-trophy fa-stack-1x fa-inverse"></i>
           </span>
-        </a>
-        <a href="#" class="table-link danger">
-          <span class="fa-stack">
-            <i class="fa fa-square fa-stack-2x"></i>
-            <i class="fa fa-trophy fa-stack-1x fa-inverse"></i>
-          </span>
-
-        </a>
+        </Link>
 
       </td>
     </tr>
