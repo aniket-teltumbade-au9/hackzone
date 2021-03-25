@@ -60,7 +60,7 @@ export const compRegister = (body) => async (dispatch) => {
   };
 
   const result = await axios(config)
-  console.log("action test1",result)
+  console.log("action test1", result)
 
   dispatch({
     type: REGISTER_COMPANY,
@@ -125,7 +125,7 @@ export const isAuthenticated = () => async (dispatch) => {
         })
       }
     }
-    else if(sessionStorage.getItem('role') === 'company') {
+    else if (sessionStorage.getItem('role') === 'company') {
       const config = {
         method: 'get',
         url: `${process.env.REACT_APP_API_URL}/admin/profile`,
@@ -145,6 +145,7 @@ export const isAuthenticated = () => async (dispatch) => {
         })
       }
       else {
+        console.log(result.data)
         dispatch({
           type: IS_LOGGEDIN,
           payload: { isAuth: true, userProfile: result.data }

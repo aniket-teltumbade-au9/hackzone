@@ -1,48 +1,57 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import ChallengeSnippet from '../../components/User/Challenge/ChallengeSnippet'
+import { Link } from 'react-router-dom'
+import '../../assets/css/ContestPage.scss'
+import intro from '../../assets/images/intro-bg.jpg'
+import Loader from '../../components/Layout/Loader'
 import { loadContest } from '../../redux/actions/contestActions'
+import '../../assets/css/color.scss'
 
-class ProblemsPage extends Component {
+class ContestPage extends Component {
   componentDidMount = () => {
-     
+
     this.props.loadContest(this.props.match.params)
   }
   render() {
-
-    return (
+    return this.props.challengeList ? (
       <>
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-9">
-              <h6 className="display-6 pl-0 pr-3 pt-3 pb-1"><strong>Challenges</strong></h6>
-              {this.props.challengeList ?
-                this.props.challengeList.challenges.map((el) => {
-                  return (
-                    <ChallengeSnippet data={el} key={el.name} />
-                  )
-                }) :
-                (
-                  <div className="w-100 m-2" style={{ border: "1px solid black", borderRadius: "5px" }}>
-                    <h6 className="display-6 p-3"><strong><strike>Contest Not Available</strike></strong></h6>
-                  </div>
-                )}
-
-            </div>
-            <div className="col-md-3">
+        <section id="intro" style={{ background: `url(${intro}) top center`, marginTop: "-72px", paddingTop: "72px" }}>
+          <div className="intro-container" data-aos="zoom-in" data-aos-delay="100">
+            <h1 className="mb-4 pb-0">
+              <strong><span>
+                {this.props.challengeList.name}
+              </span></strong>
+            </h1>
 
 
-
-
-            </div>
+            <p className="mb-4 pb-0">STARTS @: {new Date(this.props.challengeList.data.start_date).toUTCString()}</p>
+            <p className="mb-4 pb-0">ENDS @: {new Date(this.props.challengeList.data.end_date).toUTCString()}</p>
+            <p><Link
+              className="btn btn-hack" style={{ zIndex: 999 }}
+              to={`/contests/${this.props.challengeList.name}/challenges`}
+            >
+              {this.props.challengeList.status === "Live"
+                ?
+                "Enter Contest"
+                :
+                this.props.challengeList.status === "Upacoming"
+                  ?
+                  "Sign Up"
+                  :
+                  "Explore"
+              }
+            </Link>
+            </p>
           </div>
-        </div>
-      </>)
+        </section>
+      </>
+    ) : <Loader />
   }
 }
+
 
 const mapStateToProps = (storeState) => {
   return { challengeList: storeState.contestState.contest_data }
 }
 
-export default connect(mapStateToProps, { loadContest })(ProblemsPage)
+export default connect(mapStateToProps, { loadContest })(ContestPage)

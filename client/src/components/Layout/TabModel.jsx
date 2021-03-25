@@ -4,7 +4,7 @@ export default function TabModel(props) {
   const [tabmodel, setTabmodel] = useState(0)
   return (
     <>
-    <div style={{height:"55px"}}></div>
+      <div style={{ height: "55px" }}></div>
       <ul className="nav nav-tabs col-12" id="myTab" role="tablist">
         {props.tabdata.map((el, index) =>
           <li className="nav-item" role="presentation"
@@ -27,7 +27,7 @@ export default function TabModel(props) {
       </ul>
 
       <div
-        className="tab-content col-12 bg-light"
+        className="tab-content col-12 "
         id="myTabContent"
         style={{
           minHeight: "50vh",

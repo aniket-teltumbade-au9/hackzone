@@ -10,7 +10,7 @@ function Navbar(props) {
   const [toggle, setToggle] = useState(false)
   return (
     <>
-      <nav className="text-light bg-hacktone">
+      <nav className="text-light bg-hacktone fixed-top">
         <div className="w-100 d-flex justify-content-between align-items-center">
           <div className="navbar col-md-7">
             <span className="navbar-brand mb-0 h1">HackerZone</span>
@@ -43,6 +43,7 @@ function Navbar(props) {
         </div>
       ) : null
       }
+      <div className="m-4 w-100">&nbsp;</div>
     </>
   )
 }

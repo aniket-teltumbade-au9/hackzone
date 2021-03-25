@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import illustration from '../assets/images/3661726.svg'
 import '../assets/css/LandingPage.scss'
 import ModalModel from '../components/Layout/ModalModel'
-import { Link } from 'react-router-dom'
+import { div } from 'react-router-dom'
 import AuthTab from '../components/Layout/AuthTab'
 import '../assets/css/color.scss'
 
@@ -101,20 +101,20 @@ export class LandingPage extends Component {
               <h4>Matching developers with great companies</h4>
               <div className="row">
                 <div className="col-12 col-md-6 my-3">
-                  <Link style={{ color: "inherit", height: "100%" }} className="action d-flex flex-column justify-content-between" onClick={() => this.handleOpen('Admin')}>
+                  <div style={{ color: "inherit", height: "100%" }} className="action d-flex flex-column justify-content-between" onClick={() => this.handleOpen('Admin')}>
                     <div className="w-100">
                       <h5><strong>For Companies</strong></h5>
                     </div>
                     <div className="w-100">
-                      <p>We are the market-leading technical interview platform to identify and hire developers in Link remote first world</p>
+                      <p>We are the market-leading technical interview platform to identify and hire developers in div remote first world</p>
                     </div>
                     <div className="w-100">
                       <button className="btn btn-hack">Start Remote Hiring</button>
                     </div>
-                  </Link>
+                  </div>
                 </div>
                 <div className="col-12 col-md-6 my-3">
-                  <Link style={{ color: "inherit", height: "100%" }} className="action d-flex flex-column justify-content-between" onClick={() => this.handleOpen('User')}>
+                  <div style={{ color: "inherit", height: "100%" }} className="action d-flex flex-column justify-content-between" onClick={() => this.handleOpen('User')}>
                     <div className="w-100">
                       <h5><strong>For Developers</strong></h5>
                     </div>
@@ -124,7 +124,7 @@ export class LandingPage extends Component {
                     <div className="w-100">
                       <button className="btn btn-hack">Sing Up & Code</button>
                     </div>
-                  </Link>
+                  </div>
                 </div>
 
               </div>

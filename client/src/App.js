@@ -1,6 +1,7 @@
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import './App.scss'
 import { isAuthenticated, logout } from './redux/actions/authActions';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import UserDashboard from './pages/User/UserDashboard';
@@ -12,6 +13,7 @@ import CreateTest from './pages/Admin/CreateTest';
 import CreateChallenge from './pages/Admin/CreateChallenge';
 import Loader from './components/Layout/Loader';
 import ContestList from './pages/User/ContestList';
+import ContestChallenges from './pages/User/ContestChallenges';
 import ContestPage from './pages/User/ContestPage';
 
 class App extends Component {
@@ -28,10 +30,10 @@ class App extends Component {
   }
   render() {
     return (
+      this.props.authDetails ? (
 
-      <BrowserRouter>
-        {
-          this.props.authDetails ? (
+        <BrowserRouter>
+          {
 
             this.props.authDetails.isAuth === true &&
               this.props.authDetails.role === 'developer' ? (
@@ -41,10 +43,11 @@ class App extends Component {
                   handleLogout={this.Logout} />
 
                 <Switch>
-                  <Route exact path='/contests/:name' component={ContestPage} />
                   <Route exact path='/contests' component={ContestList} />
-                  <Route exact path='/error' component={PAGE404} />
+                  <Route exact path='/contests/:name' component={ContestPage} />
+                  <Route exact path='/contests/:name/challenges' component={ContestChallenges} />
                   <Route exact path='/' component={UserDashboard} />
+                  <Route path='/error' component={PAGE404} />
                   <Redirect from="*" to='/error' />
                 </Switch>
               </>
@@ -71,12 +74,12 @@ class App extends Component {
                 ) : (
                   <Loader />
                 )
-          ) : (
-            <Loader />
-          )
 
-        }
-      </BrowserRouter >
+
+          }
+        </BrowserRouter >) : (
+        <Loader />
+      )
     )
   }
 }

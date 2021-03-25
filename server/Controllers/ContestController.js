@@ -87,7 +87,7 @@ exports.endedContest = (req, res) => {
 
 exports.contestChallenges = (req, res) => {
   //res.send(req.body)
-  Contest.find(req.body, (cdocerr, cdoc) => {
+  Contest.find(req.body, { name: 1, start_date: 1, end_date: 1, creator: 1, challenges: 1 }, (cdocerr, cdoc) => {
     if (cdocerr) {
       res.status(422).send({ msg: `QueryProcessingErr:${cdocerr}` })
     }
@@ -111,9 +111,7 @@ exports.contestChallenges = (req, res) => {
             cdoc[0].start_date > new Date() ?
               "Upcoming" :
               "Ended"
-              /* let m=pdoc.map((el)=> {...el,cdoc[0].name,status])
-              console.log(m) */
-          res.status(200).send({ challenges: pdoc, name: cdoc[0].name, status })
+          res.status(200).send({ challenges: pdoc, name: cdoc[0].name, data: cdoc[0], status })
         }
       })
     }
