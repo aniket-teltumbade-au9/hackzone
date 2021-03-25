@@ -6,14 +6,21 @@ const authpasskey = process.env.AUTH_PASS_KEY
 exports.adminRegister = (req, res) => {
   const { email, password, full_name, phone_number, company, company_size, country, role } = req.body
   let hashpass = bcrypt.hashSync(password, 8)
+  console.log("hashpass:",hashpass)
   Company.create({ email, password: hashpass, full_name, phone_number, company, company_size, country, role }, (err, result) => {
     if (err) {
+      console.log(`RegistrationErr: ${err}`)
       res.status(501).send({ msg: `RegistrationErr: ${err}` })
     }
     else if (result) {
+      console.log(`RegistrationSuccess: ${result}`)
       res.status(200).send({ msg: `Registration Successful!` })
     }
-    else res.status(502).send({ msg: 'Something went wrong!' })
+    
+    else {
+      console.log(`UnexpectedErr:`)
+      res.status(502).send({ msg: 'Something went wrong!' })
+    }
   })
 }
 
@@ -21,6 +28,7 @@ exports.adminLogin = (req, res) => {
   const { email, password } = req.body
   Company.find({ email }, (docerr, doc) => {
     if (docerr) {
+      console.log("DocErr:",docerr)
       res.status(402).json({ err: docerr })
     }
     else if (doc) {
@@ -28,7 +36,11 @@ exports.adminLogin = (req, res) => {
         jwt.sign({
           data: email
         }, authpasskey, { expiresIn: '1h' }, (autherr, authtoken) => {
-          if (authtoken) {
+          if(autherr){
+            console.log("AuthErr:",autherr)
+            res.status(402).json({ err: autherr })
+          }
+          else if (authtoken) {
             res.status(200).json({ authtoken })
           }
         })

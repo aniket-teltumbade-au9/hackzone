@@ -1,13 +1,13 @@
 import axios from "axios";
-import { ADD_PROBLEM, RUN_PROBLEM } from "../actionTypes"
+import { ADD_PROBLEM, RUN_PROBLEM, OWN_CREATED_PROBLEMS } from "../actionTypes"
 
-export const addChallenge=(body) => async (dispatch) => {
+export const addChallenge = (body) => async (dispatch) => {
   var config = {
     method: 'post',
     url: `${process.env.REACT_APP_API_URL}/problem/create`,
     headers: {
       'Content-Type': 'application/json',
-      'x-access-token': localStorage.getItem('token')
+      'x-access-token': sessionStorage.getItem('token')
     },
     data: JSON.stringify(body)
   };
@@ -37,3 +37,19 @@ export const runProgram = (language, code, samples, name) => async (dispatch) =>
   })
 }
 
+export const ownChallenges = () => async (dispatch) => {
+  var config = {
+    method: 'get',
+    url: `${process.env.REACT_APP_API_URL}/problem/mychallenges`,
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': sessionStorage.getItem('token')
+    }
+  };
+  let res = await axios(config)
+  dispatch({
+    type: OWN_CREATED_PROBLEMS,
+    payload: res.data
+  })
+
+}

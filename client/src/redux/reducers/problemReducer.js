@@ -1,8 +1,9 @@
-import { ADD_PROBLEM, RUN_PROBLEM } from "../actionTypes"
+import { ADD_PROBLEM, OWN_CREATED_PROBLEMS, RUN_PROBLEM } from "../actionTypes"
 
 const initialState = {
   problem_output: null,
-  add_problem:null
+  add_problem:null,
+  own_challenges:null
 }
 
 const problemReducer = (state = initialState, { type, payload }) => {
@@ -13,6 +14,9 @@ const problemReducer = (state = initialState, { type, payload }) => {
 
     case RUN_PROBLEM:
       return { ...state, problem_output: payload }
+
+    case OWN_CREATED_PROBLEMS:
+      return { ...state, own_challenges: payload }
 
     default:
       return state

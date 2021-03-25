@@ -1,0 +1,68 @@
+import axios from "axios";
+import { ADD_CONTEST, LOAD_ENDED_CONTESTS, LOAD_LIVE_CONTESTS, LOAD_UPCOMING_CONTESTS } from "../actionTypes";
+
+export const addContest = (body) => async (dispatch) => {
+  console.log(body)
+  var config = {
+    method: 'post',
+    url: `${process.env.REACT_APP_API_URL}/contest/add`,
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': sessionStorage.getItem('token')
+    },
+    data: JSON.stringify(body)
+  };
+  let res = await axios(config)
+  dispatch({
+    type: ADD_CONTEST,
+    payload: res.data
+  })
+}
+
+export const liveContests = () => async (dispatch) => {
+  var config = {
+    method: 'get',
+    url: `${process.env.REACT_APP_API_URL}/contest/live`,
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': sessionStorage.getItem('token')
+    }
+  }
+  let res = await axios(config)
+  dispatch({
+    type: LOAD_LIVE_CONTESTS,
+    payload: res.data
+  })
+}
+
+export const upcomingContests = () => async (dispatch) => {
+  var config = {
+    method: 'get',
+    url: `${process.env.REACT_APP_API_URL}/contest/upcoming`,
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': sessionStorage.getItem('token')
+    }
+  }
+  let res = await axios(config)
+  dispatch({
+    type: LOAD_UPCOMING_CONTESTS,
+    payload: res.data
+  })
+}
+
+export const endedContests = () => async (dispatch) => {
+  var config = {
+    method: 'get',
+    url: `${process.env.REACT_APP_API_URL}/contest/ended`,
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': sessionStorage.getItem('token')
+    }
+  }
+  let res = await axios(config)
+  dispatch({
+    type: LOAD_ENDED_CONTESTS,
+    payload: res.data
+  })
+}

@@ -19,6 +19,13 @@ exports.list = (req, res) => {
   })
 }
 
+exports.adminChallenges = (req, res) => {
+  Problem.find({ createdBy: req.email},(err, result) => {
+    if (err) res.status(500).send(err)
+    else res.status(200).send(result)
+  })
+}
+
 exports.single = (req, res) => {
   let { name } = req.params
   Problem.findOne({ name }, (err, result) => {

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import illustration from '../assets/images/3661726.svg'
-import '../assets/css/color.scss'
 import '../assets/css/LandingPage.scss'
-import AuthModal from '../components/Layout/AuthModal'
+import ModalModel from '../components/Layout/ModalModel'
 import { Link } from 'react-router-dom'
 import AuthTab from '../components/Layout/AuthTab'
+import '../assets/css/color.scss'
 
 export class LandingPage extends Component {
   state = {
@@ -60,40 +60,40 @@ export class LandingPage extends Component {
   render() {
     return (
       <>
-        { this.state.isUserOpen && (<AuthModal closeModal={() => this.handleClose('User')} >
+        { this.state.isUserOpen && (<ModalModel closeModal={() => this.handleClose('User')} >
           <AuthTab
             tab_one='Sign Up'
             tab_two='Login'
             tab_three='User'
           />
-        </AuthModal>)}
-        { this.state.isAdminOpen && (<AuthModal closeModal={() => this.handleClose('Admin')} >
+        </ModalModel>)}
+        { this.state.isAdminOpen && (<ModalModel closeModal={() => this.handleClose('Admin')} >
           <AuthTab
             tab_one='Sign Up'
             tab_two='Login'
             tab_three='Admin'
           />
-        </AuthModal>)}
-        { this.state.isLoginOpen && (<AuthModal closeModal={() => this.handleClose('Login')} >
+        </ModalModel>)}
+        { this.state.isLoginOpen && (<ModalModel closeModal={() => this.handleClose('Login')} >
           <AuthTab
             tab_one='Developer'
             tab_two='Company'
             tab_three='Signin'
           />
-        </AuthModal>)}
-        { this.state.isSignupOpen && (<AuthModal closeModal={() => this.handleClose('Signup')} >
+        </ModalModel>)}
+        { this.state.isSignupOpen && (<ModalModel closeModal={() => this.handleClose('Signup')} >
           <AuthTab
             tab_one='Developer'
             tab_two='Company'
             tab_three='Register'
           />
-        </AuthModal>)}
+        </ModalModel>)}
         <div className="container-fluid LandingPage" style={{ height: "15vh" }}>
           <div className="row d-flex justify-content-between align-items-center" style={{ height: "100%" }}>
             <div className="col-12 col-md-3 ml-5"><h5>HackerZone</h5></div>
             <div className="col-12 col-md-5">
               <button className="btn btn-hack m-2 px-5" onClick={() => this.handleOpen('Login')}>Login</button>
-              <button className="btn btn-outline-hack m-2 px-5" onClick={() => this.handleOpen('Signup')}>Sign Up</button>
+              <button className="btn bg-outline-hack m-2 px-5" onClick={() => this.handleOpen('Signup')}>Sign Up</button>
             </div>
           </div>
           <div className="row d-flex justify-content-end align-items-center  flex-wrap-reverse" style={{ minHeight: "70vh" }}>

@@ -4,6 +4,7 @@ export default function TabModel(props) {
   const [tabmodel, setTabmodel] = useState(0)
   return (
     <>
+    <div style={{height:"55px"}}></div>
       <ul className="nav nav-tabs col-12" id="myTab" role="tablist">
         {props.tabdata.map((el, index) =>
           <li className="nav-item" role="presentation"
@@ -24,8 +25,25 @@ export default function TabModel(props) {
             </button>
           </li>)}
       </ul>
-      <div className="tab-content col-12" id="myTabContent" style={{ minHeight: "50vh" }}>
-        <div className="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">{props.children}</div>
+
+      <div
+        className="tab-content col-12 bg-light"
+        id="myTabContent"
+        style={{
+          minHeight: "50vh",
+          maxHeight: "80vh",
+          overflowY: "scroll"
+        }}>
+
+        <div
+          className="tab-pane active"
+          id="home"
+          role="tabpanel"
+          aria-labelledby="home-tab">
+
+          {props.children}
+
+        </div>
       </div>
     </>
   )

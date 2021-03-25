@@ -44,7 +44,7 @@ const authReducer = (state = initialState, { type, payload }) => {
         ...state,
         isAuth: payload.isAuth,
         userProfile: payload.userProfile.msg,
-        role: localStorage.getItem('role')
+        role: sessionStorage.getItem('role')
       }
 
     case LOGOUT:

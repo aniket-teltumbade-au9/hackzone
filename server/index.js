@@ -9,6 +9,7 @@ const path = require('path')
 const db = require('./db');
 const DeveloperRouter = require('./Routes/DeveloperRouter');
 const CompanyRouter = require('./Routes/CompanyRouter');
+const ContestRouter = require('./Routes/ContestRouter');
 
 const app = express()
 
@@ -24,6 +25,7 @@ db()
 app.use('/problem', ProblemRouter)
 app.use('/user', DeveloperRouter)
 app.use('/admin', CompanyRouter)
+app.use('/contest', ContestRouter)
 
 app.get('/', (req, res) => {
   res.send('health full')

@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom'
 
 function PAGE404(props) {
   return (
-    <div className="container-fluid p-0 m-0 min-vh-100 d-flex flex-column justify-content-center align-items-center" style={{
-      backgroundImage: `url(${ErrorLogo})`
+    <div className="container-fluid p-0 m-0 d-flex flex-column justify-content-center align-items-center" style={{
+      backgroundImage: `url(${ErrorLogo})`, height:"89vh", backgroundPosition:"center",backgroundSize:"cover", margin:"auto", minHeight:"89%" 
     }}>
       <span>
         <Link to="/" className="btn" style={{

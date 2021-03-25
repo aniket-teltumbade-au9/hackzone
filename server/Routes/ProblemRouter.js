@@ -1,12 +1,12 @@
-const { add, list, single, run } = require('../Controllers/ProblemController')
+const { add, list, single, run, adminChallenges } = require('../Controllers/ProblemController')
 const authverify = require('../functions/authverify')
 
 const ProblemRouter = require('express').Router()
 
-ProblemRouter.get('/all', list)
+ProblemRouter.get('/all', authverify, list)
 ProblemRouter.post('/create', authverify, add)
+ProblemRouter.get('/mychallenges', authverify, adminChallenges)
 ProblemRouter.post('/run', run)
-ProblemRouter.post('/submit', run)
 ProblemRouter.get('/single/:name', single)
 
 module.exports = ProblemRouter

@@ -26,11 +26,9 @@ function Navbar(props) {
           </div>
           <div className="d-none col-md-5 h-100 d-md-flex justify-content-between align-items-center">
             <Link className="hz-link" to='/'>Home</Link>
-            <Link className="hz-link" to='/'>Dashboard</Link>
-            <Link className="hz-link" to='/'>Test</Link>
-            <Link className="hz-link" to='/'>Test</Link>
+            <Link className="hz-link" to='/contests'>Compete</Link>
             <button className="btn btn-hack" onClick={props.handleLogout}>
-              {props.userData?props.userData.full_name:"Guest"}
+              {props.userData ? props.userData.full_name : "Guest"}
             </button>
           </div>
         </div>
@@ -38,11 +36,9 @@ function Navbar(props) {
       {toggle ? (
         <div className="d-flex col-12 d-md-none flex-column justify-content-around align-items-center text-light bg-hacktone hz-mobile-menu">
           <Link className="hz-link hz-mobile-menu-item" to='/'>Home</Link>
-          <Link className="hz-link hz-mobile-menu-item" to='/'>Dashboard</Link>
-          <Link className="hz-link hz-mobile-menu-item" to='/'>Test</Link>
-          <Link className="hz-link hz-mobile-menu-item" to='/'>Test</Link>
+          <Link className="hz-link hz-mobile-menu-item" to='/contests'>Compete</Link>
           <button className="btn btn-hack col-12 d-flex justify-content-center align-items-center" style={{ maxHeight: "56px" }} onClick={props.handleLogout}>
-            {props.userData?props.userData.full_name:"Guest"}
+            {props.userData ? props.userData.full_name : "Guest"}
           </button>
         </div>
       ) : null

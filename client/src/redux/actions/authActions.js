@@ -33,8 +33,8 @@ export const devLogin = (body) => async (dispatch) => {
 
   const result = await axios(config)
   if (result.status === 200) {
-    localStorage.setItem('token', result.data.authtoken)
-    localStorage.setItem('role', 'developer')
+    sessionStorage.setItem('token', result.data.authtoken)
+    sessionStorage.setItem('role', 'developer')
     dispatch({
       type: LOGIN_DEVELOPER,
       payload: { isAuth: true, userLogin: result.data.authtoken }
@@ -82,8 +82,8 @@ export const compLogin = (body) => async (dispatch) => {
 
   const result = await axios(config)
   if (result.status === 200) {
-    localStorage.setItem('token', result.data.authtoken)
-    localStorage.setItem('role', 'company')
+    sessionStorage.setItem('token', result.data.authtoken)
+    sessionStorage.setItem('role', 'company')
     dispatch({
       type: LOGIN_COMPANY,
       payload: { isAuth: true, userLogin: result.data.authtoken }
@@ -99,20 +99,20 @@ export const compLogin = (body) => async (dispatch) => {
 
 
 export const isAuthenticated = () => async (dispatch) => {
-  if (localStorage.getItem('token') && localStorage.getItem('role')) {
-    if (localStorage.getItem('role') === 'developer') {
+  if (sessionStorage.getItem('token') && sessionStorage.getItem('role')) {
+    if (sessionStorage.getItem('role') === 'developer') {
       const config = {
         method: 'get',
         url: `${process.env.REACT_APP_API_URL}/user/profile`,
         headers: {
           'Content-Type': 'application/json',
-          'x-access-token': localStorage.getItem('token')
+          'x-access-token': sessionStorage.getItem('token')
         }
       };
 
       const result = await axios(config)
       if (result.status !== 200) {
-        localStorage.clear()
+        sessionStorage.clear()
         dispatch({
           type: IS_LOGGEDIN,
           payload: { isAuth: false, userProfile: null }
@@ -125,18 +125,20 @@ export const isAuthenticated = () => async (dispatch) => {
         })
       }
     }
-    else if(localStorage.getItem('role') === 'company') {
+    else if(sessionStorage.getItem('role') === 'company') {
       const config = {
         method: 'get',
         url: `${process.env.REACT_APP_API_URL}/admin/profile`,
         headers: {
           'Content-Type': 'application/json',
-          'x-access-token': localStorage.getItem('token')
+          'x-access-token': sessionStorage.getItem('token')
         }
       };
 
       const result = await axios(config)
-      if (result.status!==200) {
+      console.log(result.status)
+      if (result.data.err) {
+        sessionStorage.clear()
         dispatch({
           type: IS_LOGGEDIN,
           payload: { isAuth: false, userProfile: null }
@@ -152,7 +154,7 @@ export const isAuthenticated = () => async (dispatch) => {
   }
 }
 export const logout = () => (dispatch) => {
-  localStorage.clear()
+  sessionStorage.clear()
   dispatch({
     type: LOGOUT,
     payload: null

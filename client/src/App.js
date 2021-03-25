@@ -10,6 +10,8 @@ import LandingPage from './pages/LandingPage';
 import PAGE404 from './pages/PAGE404';
 import CreateTest from './pages/Admin/CreateTest';
 import CreateChallenge from './pages/Admin/CreateChallenge';
+import Loader from './components/Layout/Loader';
+import DisplayContestList from './pages/User/DisplayContestList';
 
 class App extends Component {
   componentDidMount = () => {
@@ -33,40 +35,44 @@ class App extends Component {
             this.props.authDetails.isAuth === true &&
               this.props.authDetails.role === 'developer' ? (
               <>
-                <Navbar userData={this.props.authDetails.userProfile} handleLogout={this.Logout} />
+                <Navbar
+                  userData={this.props.authDetails.userProfile}
+                  handleLogout={this.Logout} />
 
                 <Switch>
-                  <Route exact path='/' component={UserDashboard} />
+                  <Route exact path='/contests' component={DisplayContestList} />
                   <Route exact path='/error' component={PAGE404} />
+                  <Route exact path='/' component={UserDashboard} />
                   <Redirect from="*" to='/error' />
                 </Switch>
               </>
             ) :
               this.props.authDetails.isAuth === true &&
                 this.props.authDetails.role === 'company' ? (
-                <Sidebar userData={this.props.authDetails.userProfile} handleLogout={this.Logout} >
+                <Sidebar
+                  userData={this.props.authDetails.userProfile}
+                  handleLogout={this.Logout} >
                   <Switch>
                     <Route exact path='/challenge/add' component={CreateChallenge} />
-                    <Route exact path='/create_contest' component={CreateTest} />
+                    <Route exact path='/createcontest' component={CreateTest} />
                     <Route exact path='/error' component={PAGE404} />
                     <Route exact path='/' component={AdminDashboard} />
                     <Redirect from="*" to='/error' />
                   </Switch>
                 </Sidebar>
-              ) : (
-                <Switch>
-                  <Route exact path='/error' component={PAGE404} />
-                  <Route exact path='/' component={LandingPage} />
-                  <Redirect from="*" to='/error' />
-                </Switch>
-              )
+              ) :
+                this.props.authDetails.isAuth === false ? (
+
+                  <Switch>
+                    <Route path="*" component={LandingPage} />
+                  </Switch>
+                ) : (
+                  <Loader />
+                )
           ) : (
-            <Switch>
-              <Route exact path='/error' component={PAGE404} />
-              <Route exact path='/' component={LandingPage} />
-              <Redirect from="*" to='/error' />
-            </Switch>
+            <Loader />
           )
+
         }
       </BrowserRouter >
     )
