@@ -11,7 +11,7 @@ class ContestLeaderboard extends Component {
     this.props.contestLeaderboard({ contest: this.props.match.params.name })
   }
   render() {
-    return (
+    return this.props.leaderboard ? (
       <>
         <Breadcrumbs
           bread={[
@@ -26,14 +26,25 @@ class ContestLeaderboard extends Component {
               <table className="table">
                 <thead>
                   <tr>
-                    <th>Challenge</th>
+                    <th style={{ width: "10%" }}>Rank</th>
+                    <th>User</th>
                     <th>Score</th>
-                    <th>Status</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
-
+                  {this.props.leaderboard.length > 0 ?
+                    this.props.leaderboard.map(el => <tr>
+                      <td>{el.ranking}</td>
+                      <td>{el.users.user}</td>
+                      <td>{el.users.points}</td>
+                      <td></td>
+                    </tr>) : (
+                      <tr>
+                        <td>Noone Submitted Anything yet!</td>
+                      </tr>
+                    )
+                  }
                 </tbody>
               </table>
             </div>
@@ -41,7 +52,7 @@ class ContestLeaderboard extends Component {
         </div>
 
       </>
-    )
+    ) : <Loader />
   }
 }
 

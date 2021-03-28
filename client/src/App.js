@@ -19,6 +19,7 @@ import ChallengeProblem from './pages/User/ChallengeProblem';
 import ChallengeSubmissions from './pages/User/ChallengeSubmissions';
 import ChallengeLeaderboard from './pages/User/ChallengeLeaderboard';
 import ContestSubmissions from './pages/User/ContestSubmissions';
+import ContestLeaderboard from './pages/User/ContestLeaderboard';
 
 class App extends Component {
   componentDidMount = () => {
@@ -51,6 +52,7 @@ class App extends Component {
                   <Route exact path='/contests/:name' component={ContestPage} />
                   <Route exact path='/contests/:name/challenges' component={ContestChallenges} />
                   <Route exact path='/contests/:name/submissions/all' component={ContestSubmissions} />
+                  <Route exact path='/contests/:name/leaderboard/all' component={ContestLeaderboard} />
                   <Route exact path='/contests/:name/challenges/:challenge/problem' component={ChallengeProblem} />
                   <Route exact path='/contests/:name/challenges/:challenge/submissions' component={ChallengeSubmissions} />
                   <Route exact path='/contests/:name/challenges/:challenge/leaderboard' component={ChallengeLeaderboard} />
