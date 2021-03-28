@@ -1,11 +1,15 @@
 import { combineReducers } from 'redux'
 import authReducer from './reducers/authReducer'
 import contestReducer from './reducers/contestReducer'
+import leaderboardReducer from './reducers/leaderboardReducer'
 import problemReducer from './reducers/problemReducer'
+import submitReducer from './reducers/submitReducer'
 
 let rootReducer = combineReducers({
   problemState: problemReducer,
   authState: authReducer,
-  contestState: contestReducer
+  contestState: contestReducer,
+  submitState: submitReducer,
+  laederboardeState: leaderboardReducer
 })
 export default rootReducer

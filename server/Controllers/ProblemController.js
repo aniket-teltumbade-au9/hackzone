@@ -20,7 +20,7 @@ exports.list = (req, res) => {
 }
 
 exports.adminChallenges = (req, res) => {
-  Problem.find({ createdBy: req.email},(err, result) => {
+  Problem.find({ createdBy: req.email }, (err, result) => {
     if (err) res.status(500).send(err)
     else res.status(200).send(result)
   })
@@ -42,31 +42,44 @@ exports.run = (req, res) => {
   var passed = 0
   var failed = samples.length
 
-  tmp.file({ prefix: 'projectA-', postfix: ext, keep: true }, function (err, path, fd, cleanupCallback) {
-    if (err) res.send(err);
-    fs.writeFileSync(path, code)
-    for (i = 0; i < samples.length; i++) {
-
-      let response = scriptExecutor(command, path, samples[i].sample_input)
-      if (response.message) {
-        let status = response.message === samples[i].sample_output
-        if (status) {
-          passed++
-          failed--
-        }
-        response = { ...response, status, input: samples[i].sample_input, expected: samples[i].sample_output, output: response.message }
-        output.push(response)
-      }
-      else {
-        output_error = response.error
-      }
-    }
-    if (output_error != '') {
-      let msg1 = output_error.split(path.substring(0, path.length - 3)).join("Solution");
-      res.send({ error: msg1 })
+  tmp.file({ prefix: 'projectA-', postfix: ext, keep: true }, function (ferr, path, fd, cleanupCallback) {
+    if (ferr) {
+      //cleanupCallback()
+      res.status(400).send({ msg: `FileCreationErr: ${ferr}` });
     }
     else {
-      res.send({ output, passed, failed })
+      fs.writeFileSync(path, code)
+      for (i = 0; i < samples.length; i++) {
+
+        let response = scriptExecutor(command, path, samples[i].sample_input)
+        if (response.message) {
+          let status = response.message === samples[i].sample_output
+          if (status) {
+            passed++
+            failed--
+          }
+          response = {
+            ...response,
+            status,
+            input: samples[i].sample_input,
+            expected: samples[i].sample_output,
+            output: response.message
+          }
+          output.push(response)
+        }
+        else {
+          output_error = response.error
+        }
+      }
+      if (output_error != '') {
+        let msg1 = output_error.split(path.substring(0, path.length - 3)).join("Solution");
+        //cleanupCallback()
+        res.send({ error: msg1 })
+      }
+      else {
+        //cleanupCallback()
+        res.send({ output, passed, failed })
+      }
     }
   });
 }

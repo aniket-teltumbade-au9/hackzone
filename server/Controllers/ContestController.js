@@ -1,3 +1,4 @@
+const mongoose = require('mongoose')
 const Contest = require('../Models/ContestModel')
 const Problem = require('../Models/ProblemModel')
 
@@ -106,12 +107,49 @@ exports.contestChallenges = (req, res) => {
           res.status(422).send({ msg: `QueryProcessingErr:${pdocerr}` })
         }
         else {
-          var status = cdoc[0].start_date < new Date() < cdoc[0].end_date ?
+          var status = cdoc[0].start_date < new Date() && cdoc[0].end_date > new Date() ?
             "Live" :
             cdoc[0].start_date > new Date() ?
               "Upcoming" :
               "Ended"
+          console.log(cdoc[0].start_date < new Date() && cdoc[0].end_date > new Date())
           res.status(200).send({ challenges: pdoc, name: cdoc[0].name, data: cdoc[0], status })
+        }
+      })
+    }
+  })
+}
+exports.contestChallenge = (req, res) => {
+  const { name, challenge } = req.body
+  Problem.findOne({ name: challenge }, (pdocerr, pdoc) => {
+    if (pdocerr) {
+      res.status(422).send({ msg: `QueryProcessingErr:${pdocerr}` })
+    }
+    else if (pdoc === null) {
+      res.status(400).send({ err: "Bad Request - Problem is not present in database." })
+    }
+    else {
+      Contest.aggregate([{
+        $match: {
+          challenges: {
+            $in: [pdoc._id]
+          }
+        }
+      }, {
+        $project: {
+          name: 1, _id: 0
+        }
+      }], (cdocerr, cdoc) => {
+        if (cdocerr) {
+          res.status(422).send({ msg: `QueryProcessingErr:${pdocerr}` })
+        }
+        else {
+          if (cdoc.some(el => el.name === name)) {
+            res.status(200).send(pdoc)
+          }
+          else {
+            res.status(400).send({ err: "Bad Request - problem is not associated with contest." })
+          }
         }
       })
     }

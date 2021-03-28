@@ -34,7 +34,7 @@ class ContestPage extends Component {
                 ?
                 "Enter Contest"
                 :
-                this.props.challengeList.status === "Upacoming"
+                this.props.challengeList.status === "Upcoming"
                   ?
                   "Sign Up"
                   :

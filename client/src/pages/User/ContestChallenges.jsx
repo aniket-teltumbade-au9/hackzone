@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import Breadcrumbs from '../../components/Layout/Breadcrumb'
 import Loader from '../../components/Layout/Loader'
 import ChallengeSnippet from '../../components/User/Challenge/ChallengeSnippet'
@@ -11,11 +12,14 @@ class ContestChallenges extends Component {
     this.props.loadContest(this.props.match.params)
   }
   render() {
-
     return this.props.challengeList ? (
       <>
 
-        <Breadcrumbs bread={[{ title: "Contest", link: `/contests/${this.props.match.params.name}` }, { title: "Challenge" }, { title: "Submission/Leaderboard" }]} />
+        <Breadcrumbs
+          bread={[
+            { title: "Contest", link: `/contests/${this.props.match.params.name}` },
+            { title: "Challenge" },
+          ]} />
         <div className="container">
           <div className="row">
             <h5 className="display-5 pl-0 pr-3 pt-3 pb-1"><strong>{this.props.match.params.name}</strong></h5>
@@ -26,12 +30,21 @@ class ContestChallenges extends Component {
 
             <div className="col-md-9">
               <h6 className="display-6 pl-0 pr-3 pt-3 pb-1"><strong>Challenges</strong></h6>
-              {this.props.challengeList.challenges.map((el) => <ChallengeSnippet data={el} key={el.name} />)}
+              {this.props.challengeList.challenges.map((el) => <ChallengeSnippet data={el} contestname={this.props.challengeList.name} key={el.name} />)}
 
             </div>
             <div className="col-md-3">
-
-
+              <h6 className="display-6 pl-0 pr-3 pt-3 pb-1"><strong>Current Rank</strong></h6>
+              <div>
+                <Link to={`/contests/${this.props.match.params.name}/leaderboard/all`}>
+                  <i className="fas fa-trophy pt-3 pb-0 px-3 text-secondary" style={{ fontSize: "1.2em" }}></i>
+            Current Leaderboard
+          </Link>
+                <Link to={`/contests/${this.props.match.params.name}/submissions/all`}>
+                  <i className="fas fa-list pt-3 pb-0 px-3 text-secondary" style={{ fontSize: "1.2em" }}></i>
+            Review Submissions
+          </Link>
+              </div>
 
 
             </div>

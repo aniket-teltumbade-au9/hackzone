@@ -60,7 +60,6 @@ export const compRegister = (body) => async (dispatch) => {
   };
 
   const result = await axios(config)
-  console.log("action test1", result)
 
   dispatch({
     type: REGISTER_COMPANY,
@@ -136,7 +135,6 @@ export const isAuthenticated = () => async (dispatch) => {
       };
 
       const result = await axios(config)
-      console.log(result.status)
       if (result.data.err) {
         sessionStorage.clear()
         dispatch({
@@ -145,7 +143,6 @@ export const isAuthenticated = () => async (dispatch) => {
         })
       }
       else {
-        console.log(result.data)
         dispatch({
           type: IS_LOGGEDIN,
           payload: { isAuth: true, userProfile: result.data }

@@ -10,13 +10,15 @@ const db = require('./db');
 const DeveloperRouter = require('./Routes/DeveloperRouter');
 const CompanyRouter = require('./Routes/CompanyRouter');
 const ContestRouter = require('./Routes/ContestRouter');
+const SubmitRouter = require('./Routes/SubmitRouter');
+const RankRouter = require('./Routes/RankRouter');
 
 const app = express()
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cors())
-app.use(express.static(path.join(__dirname,"public")))
+app.use(express.static(path.join(__dirname, "public")))
 
 const port = process.env.PORT || 4000
 
@@ -26,6 +28,8 @@ app.use('/problem', ProblemRouter)
 app.use('/user', DeveloperRouter)
 app.use('/admin', CompanyRouter)
 app.use('/contest', ContestRouter)
+app.use('/submit', SubmitRouter)
+app.use('/rank', RankRouter)
 
 app.get('/', (req, res) => {
   res.send('health full')
@@ -58,5 +62,5 @@ app.listen(port, () => {
   };
 
   console.log(`Portal Opened at:${chalk.blue(`http://localhost:${port}`)} \nEnvironmental Variables: \n${chalk.cyan(table(data, config))}`);
-  
+
 })

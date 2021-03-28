@@ -10,7 +10,7 @@ const termination = chalk.bold.magenta;
 
 module.exports = function () {
 
-  mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+  mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: true });
 
   mongoose.connection.on('connected', function () {
     console.log("Mongodb: " + connected('Connected'));

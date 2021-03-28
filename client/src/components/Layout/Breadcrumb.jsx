@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 class Breadcrumbs extends Component {
 
   render() {
-    console.log("bread")
     return (
 
       <div className="container">

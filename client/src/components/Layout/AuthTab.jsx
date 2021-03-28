@@ -8,7 +8,6 @@ import UserLogin from '../User/UserLogin'
 
 export default function AuthTab(props) {
   var [tab, setTab] = useState(0)
-  console.log(tab)
   return (
     <><div className="col-md-6 bg-light">
       <ul className="nav nav-tabs row login">

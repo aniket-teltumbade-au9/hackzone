@@ -15,7 +15,6 @@ class AdminLogin extends Component {
   }
   handleaLoginSubmit = (e) => {
     e.preventDefault()
-    console.log("issue finder 0",this.state)
     this.props.compLogin(this.state)
     //e.target.reset()
   }

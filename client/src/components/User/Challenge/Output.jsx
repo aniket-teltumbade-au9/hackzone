@@ -8,8 +8,8 @@ export default function Output(props) {
         props.output.error ?
           (<div
             className="col-md-12 m-0 p-0"
-            style={{ height: "50vh" }}>
-            <div className="w-100 h-100">
+            style={{ height: "50vh"}}>
+            <div className="w-100 h-100" >
               <div className="col-md-12 bg-light mt-2 mb-2 text-danger ml-0 mr-0 p-1">
                 <h5 className="display-5">Compilation Error :(</h5>
               </div>

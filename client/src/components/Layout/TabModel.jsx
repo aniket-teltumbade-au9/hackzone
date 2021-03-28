@@ -4,7 +4,7 @@ export default function TabModel(props) {
   const [tabmodel, setTabmodel] = useState(0)
   return (
     <>
-      <div style={{ height: "55px" }}></div>
+      <div style={{ height: "55px", marginBottom: "55px" }}></div>
       <ul className="nav nav-tabs col-12" id="myTab" role="tablist">
         {props.tabdata.map((el, index) =>
           <li className="nav-item" role="presentation"

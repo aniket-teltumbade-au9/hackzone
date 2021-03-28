@@ -1,8 +1,7 @@
 import axios from "axios";
-import { ADD_CONTEST, LOAD_CONTEST, LOAD_ENDED_CONTESTS, LOAD_LIVE_CONTESTS, LOAD_UPCOMING_CONTESTS } from "../actionTypes";
+import { ADD_CONTEST, LOAD_CONTEST, LOAD_ENDED_CONTESTS, LOAD_LIVE_CONTESTS, LOAD_PROBLEM, LOAD_UPCOMING_CONTESTS } from "../actionTypes";
 
 export const addContest = (body) => async (dispatch) => {
-  console.log(body)
   var config = {
     method: 'post',
     url: `${process.env.REACT_APP_API_URL}/contest/add`,
@@ -67,8 +66,7 @@ export const endedContests = () => async (dispatch) => {
   })
 }
 
-export const loadContest=(body) => async (dispatch)=>{
-  console.log("hey",body)
+export const loadContest = (body) => async (dispatch) => {
   var config = {
     method: 'post',
     url: `${process.env.REACT_APP_API_URL}/contest/contest`,
@@ -80,7 +78,31 @@ export const loadContest=(body) => async (dispatch)=>{
   }
   let res = await axios(config)
   dispatch({
-    type:LOAD_CONTEST,
+    type: LOAD_CONTEST,
     payload: res.data
   })
+}
+export const loadProblem = (body) => async (dispatch) => {
+  var config = {
+    method: 'post',
+    url: `${process.env.REACT_APP_API_URL}/contest/contestchallenge`,
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': sessionStorage.getItem('token')
+    },
+    data: JSON.stringify(body)
+  }
+  let res = await axios(config)
+  if (res.data.err) {
+    dispatch({
+      type: LOAD_PROBLEM,
+      payload: null
+    })
+  }
+  else {
+    dispatch({
+      type: LOAD_PROBLEM,
+      payload: res.data
+    })
+  }
 }

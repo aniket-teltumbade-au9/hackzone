@@ -17,7 +17,10 @@ class ContestList extends Component {
       this.props.upcomingList &&
       this.props.endedList ? (
       <>
-        <Breadcrumbs bread={[{ title: "Contest" }, { title: "Challenge" }, { title: "Submission" }]} />
+        <Breadcrumbs bread={[
+          { title: "Contest", link: `/contests` },
+          { title: "Challenge", link: `/contests` },
+        ]} />
         <div className="container">
           <div className="row">
 
@@ -60,6 +63,9 @@ class ContestList extends Component {
                 </div>
 
               </div>
+            </div>
+            <div className="col-md-3">
+
             </div>
           </div>
         </div >

@@ -15,6 +15,10 @@ import Loader from './components/Layout/Loader';
 import ContestList from './pages/User/ContestList';
 import ContestChallenges from './pages/User/ContestChallenges';
 import ContestPage from './pages/User/ContestPage';
+import ChallengeProblem from './pages/User/ChallengeProblem';
+import ChallengeSubmissions from './pages/User/ChallengeSubmissions';
+import ChallengeLeaderboard from './pages/User/ChallengeLeaderboard';
+import ContestSubmissions from './pages/User/ContestSubmissions';
 
 class App extends Component {
   componentDidMount = () => {
@@ -46,6 +50,10 @@ class App extends Component {
                   <Route exact path='/contests' component={ContestList} />
                   <Route exact path='/contests/:name' component={ContestPage} />
                   <Route exact path='/contests/:name/challenges' component={ContestChallenges} />
+                  <Route exact path='/contests/:name/submissions/all' component={ContestSubmissions} />
+                  <Route exact path='/contests/:name/challenges/:challenge/problem' component={ChallengeProblem} />
+                  <Route exact path='/contests/:name/challenges/:challenge/submissions' component={ChallengeSubmissions} />
+                  <Route exact path='/contests/:name/challenges/:challenge/leaderboard' component={ChallengeLeaderboard} />
                   <Route exact path='/' component={UserDashboard} />
                   <Route path='/error' component={PAGE404} />
                   <Redirect from="*" to='/error' />
@@ -59,7 +67,7 @@ class App extends Component {
                   handleLogout={this.Logout} >
                   <Switch>
                     <Route exact path='/challenge/add' component={CreateChallenge} />
-                    <Route exact path='/createcontest' component={CreateTest} />
+                    <Route exact path='/create_contest' component={CreateTest} />
                     <Route exact path='/error' component={PAGE404} />
                     <Route exact path='/' component={AdminDashboard} />
                     <Redirect from="*" to='/error' />
@@ -85,7 +93,6 @@ class App extends Component {
 }
 
 const mapStateToProps = (storeState) => {
-  console.log(storeState)
   return { authDetails: storeState.authState }
 }
 

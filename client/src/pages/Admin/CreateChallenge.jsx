@@ -60,7 +60,7 @@ class CreateChallenge extends Component {
     } = this.state
     this.props.addChallenge({ name, description, samples, test_cases, level, points, languages })
     this.setState({
-      tabid:0,
+      tabid: 0,
       name: '',
       description: '',
       samples: [],
@@ -92,18 +92,18 @@ class CreateChallenge extends Component {
   render() {
     return (
       <>
-        <div 
-        className="d-flex justify-content-between align-items-center" 
-        style={{ 
-          position: "absolute", 
-          width: "calc(100% - 15px)", 
-          right: "15px", 
-          zIndex: 1 
+        <div
+          className="d-flex justify-content-between align-items-center"
+          style={{
+            position: "absolute",
+            width: "calc(100% - 15px)",
+            right: "15px",
+            zIndex: 1
           }}>
           <p className="h2 py-1 pl-5">Create Challenge</p>
           <button className="btn btn-hack h-75" onClick={this.handleSubmit}>Submit</button>
         </div>
-         <TabModel handleTabmodel={this.handleTab} tabdata={["Description", "Samples", "Testcases"]}>
+        <TabModel handleTabmodel={this.handleTab} tabdata={["Description", "Samples", "Testcases"]}>
           {this.state.tabid === 0 ?
             (
               <ChallengeDesc
@@ -115,19 +115,19 @@ class CreateChallenge extends Component {
             : this.state.tabid === 1 ?
               (
                 <ChallengeSamples
-                handleInputProp={this.handleInput}
-                stateValues={this.state}
-                handleSampleProp={this.handleSample}
+                  handleInputProp={this.handleInput}
+                  stateValues={this.state}
+                  handleSampleProp={this.handleSample}
                 />
 
-              ): this.state.tabid === 2 ? (
+              ) : this.state.tabid === 2 ? (
                 <ChallengeTests
-                handleInputProp={this.handleInput}
-                stateValues={this.state}
-                handleTestcasesProp={this.handleTestcases}
+                  handleInputProp={this.handleInput}
+                  stateValues={this.state}
+                  handleTestcasesProp={this.handleTestcases}
                 />
-              ): null}
-          </TabModel>
+              ) : null}
+        </TabModel>
 
       </>
     )

@@ -50,14 +50,12 @@ class CreateTest extends Component {
   }
   handleChallenge = (data) => {
     const data_id = data.map((d) => d._id)
-    console.log(data_id)
     this.setState({
       challenges: data_id
 
     })
   }
   handleSubmit = () => {
-    console.log(this.state)
     this.props.addContest(this.state)
   }
   render() {

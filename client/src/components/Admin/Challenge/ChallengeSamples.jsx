@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 class ChallengeSamples extends Component {
-  
+
   render() {
     return (
       <div className="row justify-content-center">
@@ -16,12 +16,12 @@ class ChallengeSamples extends Component {
                 name="sample_input"
                 id="sample_input"
                 rows="3"
-                defaultValue={this.props.stateValues.sample_input}
+                value={this.props.stateValues.sample_input}
               >
               </textarea>
             </div>
           </div>
-           <div className="col-md-6">
+          <div className="col-md-6">
             <div className="form-group">
               <label htmlFor="sample_output">Sample Output</label>
               <textarea
@@ -30,12 +30,12 @@ class ChallengeSamples extends Component {
                 name="sample_output"
                 id="sample_output"
                 rows="3"
-                defaultValue={this.props.stateValues.sample_output}
+                value={this.props.stateValues.sample_output}
               >
               </textarea>
             </div>
           </div>
-          
+
           <div className="col-6">
             <p>Inputs</p>
             {
@@ -58,7 +58,7 @@ class ChallengeSamples extends Component {
             }
           </div>
           <div className="col-6">
-         <p>Outputs</p>
+            <p>Outputs</p>
             {
               this.props.stateValues.samples.length > 0 ?
                 (

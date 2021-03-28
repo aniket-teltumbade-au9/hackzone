@@ -16,17 +16,20 @@ exports.userRegister = (req, res) => {
 }
 exports.userLogin = (req, res) => {
   const { email, password } = req.body
-  Developer.find({ email }, (docerr, doc) => {
+  Developer.findOne({ email }, (docerr, doc) => {
     if (docerr) {
       res.status(402).json({ err: docerr })
     }
     else if (doc) {
-      if (bcrypt.compareSync(password, doc[0].password)) {
+      console.log(doc)
+      if (bcrypt.compareSync(password, doc.password)) {
         jwt.sign({
           data: email
-        }, authpasskey, { expiresIn: '1h' }, (autherr, authtoken) => {
+        }, authpasskey, { expiresIn: '24h' }, (autherr, authtoken) => {
           if (authtoken) {
             res.status(200).json({ authtoken })
+          } else {
+            res.status(402).json({ err: autherr })
           }
         })
       }
@@ -35,7 +38,7 @@ exports.userLogin = (req, res) => {
       }
     }
     else {
-      res.status(404).send({ msg: 'Something went wrong!' })
+      res.status(404).send({ msg: 'Email not registered!' })
     }
   })
 }
