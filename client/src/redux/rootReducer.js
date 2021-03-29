@@ -10,6 +10,6 @@ let rootReducer = combineReducers({
   authState: authReducer,
   contestState: contestReducer,
   submitState: submitReducer,
-  laederboardeState: leaderboardReducer
+  leaderboardeState: leaderboardReducer
 })
 export default rootReducer

@@ -39,7 +39,7 @@ class ChallengeLeaderboard extends Component {
 }
 
 const mapStateToProps = (storeState) => {
-  return { challengeRank: storeState.laederboardeState.challenge_leaderboard }
+  return { challengeRank: storeState.leaderboardeState.challenge_leaderboard }
 }
 
 

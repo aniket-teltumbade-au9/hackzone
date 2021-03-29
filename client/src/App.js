@@ -20,6 +20,7 @@ import ChallengeSubmissions from './pages/User/ChallengeSubmissions';
 import ChallengeLeaderboard from './pages/User/ChallengeLeaderboard';
 import ContestSubmissions from './pages/User/ContestSubmissions';
 import ContestLeaderboard from './pages/User/ContestLeaderboard';
+import Contests from './pages/Admin/Contests';
 
 class App extends Component {
   componentDidMount = () => {
@@ -70,6 +71,7 @@ class App extends Component {
                   <Switch>
                     <Route exact path='/challenge/add' component={CreateChallenge} />
                     <Route exact path='/create_contest' component={CreateTest} />
+                    <Route exact path='/contests/dashboard' component={Contests} />
                     <Route exact path='/error' component={PAGE404} />
                     <Route exact path='/' component={AdminDashboard} />
                     <Redirect from="*" to='/error' />

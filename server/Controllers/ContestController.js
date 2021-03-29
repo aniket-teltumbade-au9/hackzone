@@ -155,3 +155,14 @@ exports.contestChallenge = (req, res) => {
     }
   })
 }
+exports.createdbymeContest = (req, res) => {
+  let { email } = req
+  Contest.find({ creator: email }, (cdocerr, cdoc) => {
+    if (cdocerr) {
+      res.status(422).send({ msg: `QueryProcessingErr:${cdocerr}` })
+    }
+    else {
+      res.status(200).send(cdoc)
+    }
+  })
+}

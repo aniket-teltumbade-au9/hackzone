@@ -57,7 +57,7 @@ class ContestLeaderboard extends Component {
 }
 
 const mapStateToProps = (storeState) => {
-  return { leaderboard: storeState.laederboardeState.contest_leaderboard }
+  return { leaderboard: storeState.leaderboardeState.contest_leaderboard }
 }
 
 

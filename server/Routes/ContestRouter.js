@@ -1,4 +1,4 @@
-const { addContest, liveContest, upcomingContest, endedContest, contestChallenges, contestChallenge } = require('../Controllers/ContestController')
+const { addContest, liveContest, upcomingContest, endedContest, contestChallenges, contestChallenge, createdbymeContest } = require('../Controllers/ContestController')
 const authverify = require('../functions/authverify')
 
 const ContestRouter = require('express').Router()
@@ -9,5 +9,6 @@ ContestRouter.get('/upcoming', authverify, upcomingContest)
 ContestRouter.get('/ended', authverify, endedContest)
 ContestRouter.post('/contest', authverify, contestChallenges)
 ContestRouter.post('/contestchallenge', authverify, contestChallenge)
+ContestRouter.post('/createdbyme', authverify, createdbymeContest)
 
 module.exports = ContestRouter

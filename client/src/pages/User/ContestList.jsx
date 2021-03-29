@@ -39,6 +39,8 @@ class ContestList extends Component {
                         this.props.liveList.map(el => <ContestItem list={el} />)
                         : <tr><td colSpan="3"><p className="text-center text-secondary">N/A</p></td></tr>}
                     </tbody>
+                  </table>
+                  <table className="my-3 table">
                     <tbody>
                       <tr>
                         <td colspan="3"> <div className="text-center w-100">Upcoming</div> </td>
@@ -49,6 +51,8 @@ class ContestList extends Component {
                         this.props.upcomingList.map(el => <ContestItem list={el} />)
                         : <tr><td colSpan="3"><p className="text-center text-secondary">N/A</p></td></tr>}
                     </tbody>
+                  </table>
+                  <table className="my-3 table">
                     <tbody>
                       <tr>
                         <td colspan="3"> <div className="text-center w-100">Ended</div> </td>

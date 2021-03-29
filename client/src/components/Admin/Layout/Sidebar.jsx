@@ -17,6 +17,7 @@ export default function Sidebar(props) {
           <Link className="hz-link my-1" to='/'>Home</Link>
           <Link className="hz-link my-1" to='/challenge/add'>Add Challenge</Link>
           <Link className="hz-link my-1" to='/create_contest'>Create Contest</Link>
+          <Link className="hz-link my-1" to='/contests/dashboard'>Contests Dashboard</Link>
         </div> : null}
         < div className={`m-0 p-0 ${sidebar ? "col-10 col-md-9" : "col-12"}`} >
           <div className="navbar mr-0 d-flex justify-content-between m-0 bg-hacktone text-light">

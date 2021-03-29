@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ADD_CONTEST, LOAD_CONTEST, LOAD_ENDED_CONTESTS, LOAD_LIVE_CONTESTS, LOAD_PROBLEM, LOAD_UPCOMING_CONTESTS } from "../actionTypes";
+import { ADD_CONTEST, LOAD_CONTEST, LOAD_CREATORS_CONTESTS, LOAD_ENDED_CONTESTS, LOAD_LIVE_CONTESTS, LOAD_PROBLEM, LOAD_UPCOMING_CONTESTS } from "../actionTypes";
 
 export const addContest = (body) => async (dispatch) => {
   var config = {
@@ -105,4 +105,19 @@ export const loadProblem = (body) => async (dispatch) => {
       payload: res.data
     })
   }
+}
+
+export const creatorContests = () => async (dispatch) => {
+  var config = {
+    method: 'post',
+    url: `${process.env.REACT_APP_API_URL}/contest/createdbyme`,
+    headers: {
+      'x-access-token': sessionStorage.getItem('token')
+    }
+  }
+  let res = await axios(config)
+  dispatch({
+    type: LOAD_CREATORS_CONTESTS,
+    payload: res.data
+  })
 }
