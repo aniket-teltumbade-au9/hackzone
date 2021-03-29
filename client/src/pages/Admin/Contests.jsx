@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import TableChallenge from '../../components/Admin/Contest/TableChallenge'
 import Loader from '../../components/Layout/Loader'
 import TabModel from '../../components/Layout/TabModel'
 import { creatorContests, loadContest } from '../../redux/actions/contestActions'
@@ -46,6 +47,9 @@ class Contests extends Component {
               {
                 this.state.tabid === 0 ? (
                   <>
+                    {this.props.challengeList ?
+                      <TableChallenge tabledata={this.props.challengeList.challenges} /> : <Loader />
+                    }
                   </>
                 ) :
                   this.state.tabid === 1 ? (
