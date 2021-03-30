@@ -44,7 +44,6 @@ exports.run = (req, res) => {
 
   tmp.file({ prefix: 'projectA-', postfix: ext, keep: true }, function (ferr, path, fd, cleanupCallback) {
     if (ferr) {
-      //cleanupCallback()
       res.status(400).send({ msg: `FileCreationErr: ${ferr}` });
     }
     else {
@@ -73,13 +72,29 @@ exports.run = (req, res) => {
       }
       if (output_error != '') {
         let msg1 = output_error.split(path.substring(0, path.length - 3)).join("Solution");
-        //cleanupCallback()
         res.send({ error: msg1 })
       }
       else {
-        //cleanupCallback()
         res.send({ output, passed, failed })
       }
     }
+    cleanupCallback()
   });
+}
+exports.compile = (req, res) => {
+  let { language, code, input } = req.body
+  let ext = language === "python" ? ".py" : language === "javascript" ? ".js" : null
+  let command = language === "python" ? "python" : language === "javascript" ? "node" : null
+  tmp.file({ prefix: 'projectA-', postfix: ext, keep: true }, function (ferr, path, fd, cleanupCallback) {
+    if (ferr) {
+      res.status(400).send({ msg: `FileCreationErr: ${ferr}` });
+    }
+    else {
+      console.log(path, fd)
+      fs.writeFileSync(path, code)
+      let response = scriptExecutor(command, path, input)
+      res.send(response)
+    }
+    cleanupCallback()
+  })
 }

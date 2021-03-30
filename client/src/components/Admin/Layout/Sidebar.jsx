@@ -37,6 +37,7 @@ export default function Sidebar(props) {
             </span>
             <button className="btn btn-hack" onClick={props.handleLogout}>
               {props.userData ? props.userData.full_name : "Guest"}
+              <i class="fas fa-sign-out-alt"></i>
             </button>
           </div>
           <div className='mw-100'>

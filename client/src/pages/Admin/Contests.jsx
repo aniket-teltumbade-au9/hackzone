@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import TableChallenge from '../../components/Admin/Contest/TableChallenge'
+import TableLeaderboard from '../../components/Admin/Contest/TableLeaderboard'
 import Loader from '../../components/Layout/Loader'
 import TabModel from '../../components/Layout/TabModel'
 import { creatorContests, loadContest } from '../../redux/actions/contestActions'
+import { contestLeaderboard } from '../../redux/actions/leaderboardActions'
 
 class Contests extends Component {
   state = {
@@ -25,25 +27,24 @@ class Contests extends Component {
     })
   }
   componentDidUpdate = (prevProps, prevState) => {
-    if (this.state.name !== prevState.name) {
+    if (this.state.name !== prevState.name && this.state.name !== '') {
       this.props.loadContest({ name: this.state.name })
+      this.props.contestLeaderboard({ contest: this.state.name })
     }
   }
   render() {
     return this.props.contests ? (
       <>
-        <div className="container">
-          <div className="row py-2 d-flex justify-content-center">
+        <div className="container ">
+          <div className=" col-12 pt-3 d-flex justify-content-center">
             Contest Name:
           <select name="name" id="" defaultValue={this.state.name} onChange={this.handleSelect}>
               <option value=''>Select Contest</option>
               {this.props.contests.map(el => <option>{el.name}</option>)}
             </select>
           </div>
-        </div>
-        <div className="container">
-          <div className="row">
-            <TabModel tabdata={["Challenges", "Submissions", "Leaderboard"]} handleTabmodel={this.handleTab}>
+          <div className="col-12">
+            <TabModel tabdata={["Challenges", "Leaderboard"]} handleTabmodel={this.handleTab}>
               {
                 this.state.tabid === 0 ? (
                   <>
@@ -54,12 +55,11 @@ class Contests extends Component {
                 ) :
                   this.state.tabid === 1 ? (
                     <>
+                      {this.props.leaderboard ?
+                        <TableLeaderboard tabledata={this.props.leaderboard} /> : <Loader />
+                      }
                     </>
-                  ) :
-                    this.state.tabid === 2 ? (
-                      <>
-                      </>
-                    ) : null
+                  ) : null
               }
             </TabModel>
           </div>
@@ -72,9 +72,10 @@ class Contests extends Component {
 const mapStateToProps = (storeState) => {
   return {
     contests: storeState.contestState.admin_contests,
-    challengeList: storeState.contestState.contest_data
+    challengeList: storeState.contestState.contest_data,
+    leaderboard: storeState.leaderboardeState.contest_leaderboard,
   }
 }
 
 
-export default connect(mapStateToProps, { creatorContests, loadContest })(Contests)
+export default connect(mapStateToProps, { creatorContests, loadContest, contestLeaderboard })(Contests)

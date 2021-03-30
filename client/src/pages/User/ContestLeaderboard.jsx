@@ -21,7 +21,7 @@ class ContestLeaderboard extends Component {
           } />
         <div className="container">
           <div className="row">
-            <div className="h2">Submissions</div>
+            <div className="h2">Leaderboard</div>
             <div className="col-12">
               <table className="table">
                 <thead>
@@ -35,7 +35,7 @@ class ContestLeaderboard extends Component {
                 <tbody>
                   {this.props.leaderboard.length > 0 ?
                     this.props.leaderboard.map(el => <tr>
-                      <td>{el.ranking}</td>
+                      <td>{el.ranking + 1}</td>
                       <td>{el.users.user}</td>
                       <td>{el.users.points}</td>
                       <td></td>

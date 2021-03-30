@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ADD_PROBLEM, RUN_PROBLEM, OWN_CREATED_PROBLEMS } from "../actionTypes"
+import { ADD_PROBLEM, RUN_PROBLEM, OWN_CREATED_PROBLEMS, COMPILE } from "../actionTypes"
 
 export const addChallenge = (body) => async (dispatch) => {
   var config = {
@@ -34,6 +34,23 @@ export const runProgram = (language, code, samples, name) => async (dispatch) =>
   dispatch({
     type: RUN_PROBLEM,
     payload: result
+  })
+}
+export const compileProgram = (body) => async (dispatch) => {
+  var config = {
+    method: 'post',
+    url: `${process.env.REACT_APP_API_URL}/problem/compile`,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: JSON.stringify(body)
+  };
+
+  let res = await axios(config)
+  dispatch({
+    type: COMPILE,
+    payload: res.data.message
+
   })
 }
 

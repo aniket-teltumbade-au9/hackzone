@@ -29,6 +29,7 @@ function Navbar(props) {
             <Link className="hz-link" to='/contests'>Compete</Link>
             <button className="btn btn-hack" onClick={props.handleLogout}>
               {props.userData ? props.userData.full_name : "Guest"}
+              <i class="fas fa-sign-out-alt"></i>
             </button>
           </div>
         </div>
