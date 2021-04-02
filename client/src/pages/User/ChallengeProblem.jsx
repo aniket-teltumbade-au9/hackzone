@@ -9,11 +9,12 @@ import { loadProblem } from '../../redux/actions/contestActions';
 import Loader from '../../components/Layout/Loader';
 import { runProgram } from '../../redux/actions/problemActions';
 import { submitProblem } from '../../redux/actions/submitActions';
+import { jscript, pythonScript } from '../../helpers/defaultCodes';
 
 class ChallengeProblem extends Component {
   state = {
     language: 'python',
-    code: null
+    code: pythonScript
   }
   componentDidMount = () => {
     this.props.loadProblem(this.props.match.params)
@@ -21,10 +22,20 @@ class ChallengeProblem extends Component {
   handleEditor = (value, event) => {
     this.setState({ code: value })
   }
-  handleSelect = (event) => {
+  handleSelect = (e) => {
     this.setState({
-      [event.target.name]: event.target.value
+      [e.target.name]: e.target.value
     })
+    if (e.target.value === "python") {
+      this.setState({
+        code: pythonScript
+      })
+    }
+    else if (e.target.value === "javascript") {
+      this.setState({
+        code: jscript
+      })
+    }
   }
   handleRun = async (samples, node, event) => {
     if (this.props.problem) {
@@ -74,6 +85,7 @@ class ChallengeProblem extends Component {
               language={this.state.language}
               onChange={this.handleEditor}
               height="60vh"
+              value={this.state.code ? this.state.code : ''}
             />
           </div>
           <div className="col-md-12 d-flex justify-content-end">

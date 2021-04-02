@@ -2,21 +2,33 @@ import Editor from '@monaco-editor/react'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import '../../assets/css/color.scss';
+import { jscript, pythonScript } from '../../helpers/defaultCodes';
 import { compileProgram } from '../../redux/actions/problemActions';
 
 class UserDashboard extends Component {
   state = {
     language: "python",
-    code: null,
+    code: pythonScript,
     input: null,
     sampled: [],
     languages: []
   }
   handleEditor = (value, event) => {
     this.setState({ code: value })
+    console.log({ value })
   }
   handleInput = (e) => {
     this.setState({ [e.target.name]: e.target.value })
+    if (e.target.value === "python") {
+      this.setState({
+        code: pythonScript
+      })
+    }
+    else if (e.target.value === "javascript") {
+      this.setState({
+        code: jscript
+      })
+    }
   }
   handleSubmit = () => {
     this.props.compileProgram(this.state)
@@ -39,6 +51,7 @@ class UserDashboard extends Component {
                 theme="vs-dark"
                 language={this.state.language}
                 onChange={this.handleEditor}
+                value={this.state.code ? this.state.code : ''}
                 height="79vh"
               />
             </div>

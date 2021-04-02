@@ -2,7 +2,24 @@ const Company = require('../Models/CompanyModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const authpasskey = process.env.AUTH_PASS_KEY
+var redis = require('redis');
+var retryStrategy = require("node-redis-retry-strategy");
+const chalk = require('chalk');
 
+var client = redis.createClient({
+  host: 'redis.acme.com',
+  username: process.env.REDIS_DB,
+  password: process.env.REDIS_PASSWORD,
+  url: process.env.REDIS_URL,
+  retry_strategy: retryStrategy({
+    number_of_retry_attempts: 20,
+    wait_time: 600000,
+    delay_of_retry_attempts: 1000
+  })
+});
+client.on('connect', function () {
+  console.log(`Redis: ${chalk.bold.green("connected")}`);
+});
 exports.adminRegister = (req, res) => {
   const { email, password, full_name, phone_number, company, company_size, country, role } = req.body
   let hashpass = bcrypt.hashSync(password, 8)

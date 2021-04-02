@@ -62,7 +62,7 @@ class AdminSignup extends Component {
                   type="email"
                   id="businessEmail"
                   className="form-control border-left-0 bg-hacktone"
-                  required="required"
+                  required
                   name="email"
                   onChange={this.handleInput}
                 />
@@ -76,7 +76,7 @@ class AdminSignup extends Component {
                   type="password"
                   className="form-control border-left-0 bg-hacktone"
                   id="businessPassword"
-                  required="required"
+                  required
                   name="password"
                   onChange={this.handleInput}
                 />
@@ -89,7 +89,7 @@ class AdminSignup extends Component {
                 <input type="text"
                   className="form-control border-left-0 bg-hacktone"
                   id="fullName"
-                  required="required"
+                  required
                   name="full_name"
                   onChange={this.handleInput}
                 />
@@ -103,7 +103,7 @@ class AdminSignup extends Component {
                   type="tel"
                   className="form-control border-left-0 bg-hacktone"
                   id="phone"
-                  required="required"
+                  required
                   name="phone_number"
                   onChange={this.handleInput}
                 />
@@ -119,7 +119,7 @@ class AdminSignup extends Component {
                   id="company"
                   name="company"
                   onChange={this.handleInput}
-                  required="required" />
+                  required />
               </div>
             </div>
 
