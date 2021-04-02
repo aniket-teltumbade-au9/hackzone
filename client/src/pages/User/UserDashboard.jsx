@@ -9,7 +9,8 @@ class UserDashboard extends Component {
     language: "python",
     code: null,
     input: null,
-    sampled: []
+    sampled: [],
+    languages: []
   }
   handleEditor = (value, event) => {
     this.setState({ code: value })
@@ -20,7 +21,8 @@ class UserDashboard extends Component {
   handleSubmit = () => {
     this.props.compileProgram(this.state)
     this.setState({
-      sampled: [...this.state.sampled, this.state.input]
+      sampled: [...this.state.sampled, this.state.input],
+      languages: [...this.state.languages, this.state.language === "python" ? "python Solution.py" : "node Solution.js"]
     })
   }
   render() {
@@ -43,7 +45,7 @@ class UserDashboard extends Component {
             <div className="w-100 d-flex justify-content-between">
               <select
                 id="language"
-                name="laguage"
+                name="language"
                 onChange={this.handleInput}>
                 <option>python</option>
                 <option>javascript</option>
@@ -61,7 +63,9 @@ class UserDashboard extends Component {
               }}>
               {this.props.output ?
                 this.props.output.map((el, index) => <>
-                  <small>>  {this.state.language === "python" ? "python Solution.py" : "node Solution.js"}</small>
+                  <small>>  {
+                    this.state.languages[index] ? `> ${this.state.languages[index]}` : null
+                  }</small>
                   <pre style={{ color: "white" }}>
                     {this.state.sampled[index] ? `> ${this.state.sampled[index]}` : null}
                   </pre>

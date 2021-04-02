@@ -1,5 +1,6 @@
 import axios from "axios";
 import { ADD_PROBLEM, RUN_PROBLEM, OWN_CREATED_PROBLEMS, COMPILE } from "../actionTypes"
+let tokanstorage = sessionStorage.getItem('token') || localStorage.getItem('token')
 
 export const addChallenge = (body) => async (dispatch) => {
   var config = {
@@ -7,7 +8,7 @@ export const addChallenge = (body) => async (dispatch) => {
     url: `${process.env.REACT_APP_API_URL}/problem/create`,
     headers: {
       'Content-Type': 'application/json',
-      'x-access-token': sessionStorage.getItem('token')
+      'x-access-token': tokanstorage
     },
     data: JSON.stringify(body)
   };
@@ -60,7 +61,7 @@ export const ownChallenges = () => async (dispatch) => {
     url: `${process.env.REACT_APP_API_URL}/problem/mychallenges`,
     headers: {
       'Content-Type': 'application/json',
-      'x-access-token': sessionStorage.getItem('token')
+      'x-access-token': tokanstorage
     }
   };
   let res = await axios(config)

@@ -46,7 +46,9 @@ app.listen(port, () => {
     [chalk.magentaBright('REDIS_URL'), process.env.REDIS_URL],
     [chalk.magentaBright('REDIS_DB'), process.env.REDIS_DB],
     [chalk.magentaBright('REDIS_PASSWORD'), process.env.REDIS_PASSWORD],
-    [chalk.magentaBright('AUTH_PASS_KEY'), process.env.AUTH_PASS_KEY]
+    [chalk.magentaBright('AUTH_PASS_KEY'), process.env.AUTH_PASS_KEY],
+    [chalk.magentaBright('MAIL_USER'), process.env.MAIL_USER],
+    [chalk.magentaBright('MAIL_PASS'), process.env.MAIL_PASS]
   ];
 
   config = {

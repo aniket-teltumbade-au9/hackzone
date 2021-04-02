@@ -21,6 +21,8 @@ import ChallengeLeaderboard from './pages/User/ChallengeLeaderboard';
 import ContestSubmissions from './pages/User/ContestSubmissions';
 import ContestLeaderboard from './pages/User/ContestLeaderboard';
 import Contests from './pages/Admin/Contests';
+import Footer from './components/Layout/Footer';
+import ResetPassword from './pages/ResetPassword';
 
 class App extends Component {
   componentDidMount = () => {
@@ -36,62 +38,67 @@ class App extends Component {
   }
   render() {
     return (
-      this.props.authDetails ? (
+      <>
+        {
+          this.props.authDetails ? (
 
-        <BrowserRouter>
-          {
+            <BrowserRouter>
+              {
 
-            this.props.authDetails.isAuth === true &&
-              this.props.authDetails.role === 'developer' ? (
-              <>
-                <Navbar
-                  userData={this.props.authDetails.userProfile}
-                  handleLogout={this.Logout} />
+                this.props.authDetails.isAuth === true &&
+                  this.props.authDetails.role === 'developer' ? (
+                  <>
+                    <Navbar
+                      userData={this.props.authDetails.userProfile}
+                      handleLogout={this.Logout} />
 
-                <Switch>
-                  <Route exact path='/contests' component={ContestList} />
-                  <Route exact path='/contests/:name' component={ContestPage} />
-                  <Route exact path='/contests/:name/challenges' component={ContestChallenges} />
-                  <Route exact path='/contests/:name/submissions/all' component={ContestSubmissions} />
-                  <Route exact path='/contests/:name/leaderboard/all' component={ContestLeaderboard} />
-                  <Route exact path='/contests/:name/challenges/:challenge/problem' component={ChallengeProblem} />
-                  <Route exact path='/contests/:name/challenges/:challenge/submissions' component={ChallengeSubmissions} />
-                  <Route exact path='/contests/:name/challenges/:challenge/leaderboard' component={ChallengeLeaderboard} />
-                  <Route exact path='/' component={UserDashboard} />
-                  <Route path='/error' component={PAGE404} />
-                  <Redirect from="*" to='/error' />
-                </Switch>
-              </>
-            ) :
-              this.props.authDetails.isAuth === true &&
-                this.props.authDetails.role === 'company' ? (
-                <Sidebar
-                  userData={this.props.authDetails.userProfile}
-                  handleLogout={this.Logout} >
-                  <Switch>
-                    <Route exact path='/challenge/add' component={CreateChallenge} />
-                    <Route exact path='/create_contest' component={CreateTest} />
-                    <Route exact path='/contests/dashboard' component={Contests} />
-                    <Route exact path='/error' component={PAGE404} />
-                    <Route exact path='/' component={AdminDashboard} />
-                    <Redirect from="*" to='/error' />
-                  </Switch>
-                </Sidebar>
-              ) :
-                this.props.authDetails.isAuth === false ? (
+                    <Switch>
+                      <Route exact path='/contests' component={ContestList} />
+                      <Route exact path='/contests/:name' component={ContestPage} />
+                      <Route exact path='/contests/:name/challenges' component={ContestChallenges} />
+                      <Route exact path='/contests/:name/submissions/all' component={ContestSubmissions} />
+                      <Route exact path='/contests/:name/leaderboard/all' component={ContestLeaderboard} />
+                      <Route exact path='/contests/:name/challenges/:challenge/problem' component={ChallengeProblem} />
+                      <Route exact path='/contests/:name/challenges/:challenge/submissions' component={ChallengeSubmissions} />
+                      <Route exact path='/contests/:name/challenges/:challenge/leaderboard' component={ChallengeLeaderboard} />
+                      <Route exact path='/' component={UserDashboard} />
+                      <Route path='/error' component={PAGE404} />
+                      <Redirect from="*" to='/' />
+                    </Switch>
+                  </>
+                ) :
+                  this.props.authDetails.isAuth === true &&
+                    this.props.authDetails.role === 'company' ? (
+                    <Sidebar
+                      userData={this.props.authDetails.userProfile}
+                      handleLogout={this.Logout} >
+                      <Switch>
+                        <Route exact path='/challenge/add' component={CreateChallenge} />
+                        <Route exact path='/create_contest' component={CreateTest} />
+                        <Route exact path='/contests/dashboard' component={Contests} />
+                        <Route exact path='/error' component={PAGE404} />
+                        <Route exact path='/' component={AdminDashboard} />
+                        <Redirect from="*" to='/' />
+                      </Switch>
+                    </Sidebar>
+                  ) :
+                    this.props.authDetails.isAuth === false ? (
 
-                  <Switch>
-                    <Route path="*" component={LandingPage} />
-                  </Switch>
-                ) : (
-                  <Loader />
-                )
+                      <Switch>
+                        <Route exact path='/reset_password/:role/:passkey' component={ResetPassword} />
+                        <Route path="*" component={LandingPage} />
+                      </Switch>
+                    ) : (
+                      <Loader />
+                    )
 
 
-          }
-        </BrowserRouter >) : (
-        <Loader />
-      )
+              }
+            </BrowserRouter >) : (
+            <Loader />
+          )}
+        <Footer />
+      </>
     )
   }
 }

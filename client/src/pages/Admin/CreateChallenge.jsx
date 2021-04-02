@@ -103,6 +103,7 @@ class CreateChallenge extends Component {
           <p className="h2 py-1 pl-5">Create Challenge</p>
           <button className="btn btn-hack h-75" onClick={this.handleSubmit}>Submit</button>
         </div>
+        <div style={{ height: "50px", marginBottom: "50px" }}></div>
         <TabModel handleTabmodel={this.handleTab} tabdata={["Description", "Samples", "Testcases"]}>
           {this.state.tabid === 0 ?
             (

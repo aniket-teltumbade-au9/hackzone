@@ -1,27 +1,44 @@
 const Developer = require('../Models/DeveloperModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+var redis = require('redis');
+const chalk = require('chalk');
+const { uid } = require('rand-token')
+const resetPassMail = require('../functions/resetPassMail');
 const authpasskey = process.env.AUTH_PASS_KEY
+
+
+var client = redis.createClient({
+  host: 'redis.acme.com',
+  username: process.env.REDIS_DB,
+  password: process.env.REDIS_PASSWORD,
+  url: process.env.REDIS_URL
+});
+client.on('connect', function () {
+  console.log(`Redis: ${chalk.bold.green("connected")}`);
+});
 
 exports.userRegister = (req, res) => {
   const { full_name, email, password } = req.body
   var hashpass = bcrypt.hashSync(password, 8)
   Developer.create({ full_name, email, password: hashpass }, (err, result) => {
-    if (err) res.status(501).send({ msg: `RegistrationErr: ${err}` })
+    if (err) res.send({ err: `RegistrationErr: ${err}` })
     else if (result) {
-      res.status(200).send({ msg: `Registration Successful!` })
+      res.send({ msg: `Registration Successful!` })
     }
-    else res.status(502).send({ msg: 'Something went wrong!' })
+    else res.send({ err: 'Something went wrong!' })
   })
 }
 exports.userLogin = (req, res) => {
   const { email, password } = req.body
   Developer.findOne({ email }, (docerr, doc) => {
     if (docerr) {
-      res.status(402).json({ err: docerr })
+      res.json({ err: docerr })
     }
-    else if (doc) {
-      console.log(doc)
+    else if (doc === undefined || doc === null) {
+      res.send({ err: 'Email not registered!' })
+    } else {
+      console.log("hey", doc)
       if (bcrypt.compareSync(password, doc.password)) {
         jwt.sign({
           data: email
@@ -29,16 +46,13 @@ exports.userLogin = (req, res) => {
           if (authtoken) {
             res.status(200).json({ authtoken })
           } else {
-            res.status(402).json({ err: autherr })
+            res.json({ err: autherr })
           }
         })
       }
       else {
-        res.status(501).send({ msg: 'Password doesn\'t match' })
+        res.send({ err: 'Password doesn\'t match' })
       }
-    }
-    else {
-      res.status(404).send({ msg: 'Email not registered!' })
     }
   })
 }
@@ -50,6 +64,44 @@ exports.userProfile = (req, res) => {
     }
     else {
       res.status(200).send({ msg: doc })
+    }
+  })
+}
+exports.requestDevPassToken = (req, res) => {
+  const { email } = req.body
+  console.log(req.headers.origin)
+  Developer.findOne(req.body, (docerr, doc) => {
+    if (doc.email) {
+      let passtoken = uid(6)
+      client.set(passtoken, doc.email, (rerr, rreply) => {
+        console.log(rreply)
+        resetPassMail(doc.full_name, doc.email, passtoken, "developer", req.headers.origin)
+        res.send({ msg: `Check Your email! Further instructions send to your email.` })
+      })
+    }
+    else {
+      res.send({ err: "Email not registered!" })
+    }
+  })
+
+}
+exports.resetDevPassword = (req, res) => {
+  const { password, passkey } = req.body
+  client.get(passkey, (rerr, rreply) => {
+    if (rerr) {
+      res.send({ msg: "Expired key! Resend Email!" })
+    }
+    else {
+      var hashpass = bcrypt.hashSync(password, 8)
+      Developer.findOneAndUpdate({ email: rreply }, { password: hashpass }, (docerr, doc) => {
+        if (docerr) {
+          res.send("Something Went wrong")
+        }
+        else {
+          console.log("doc", doc)
+          res.send({ msg: "Password changed Successfully!" })
+        }
+      })
     }
   })
 }

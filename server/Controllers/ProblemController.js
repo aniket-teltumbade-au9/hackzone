@@ -71,8 +71,8 @@ exports.run = (req, res) => {
         }
       }
       if (output_error != '') {
-        let msg1 = output_error.split(path.substring(0, path.length - 3)).join("Solution");
-        res.send({ error: msg1 })
+        //let msg1 = output_error.split(path.substring(0, path.length - 3)).join("Solution");
+        res.send({ error: output_error })
       }
       else {
         res.send({ output, passed, failed })

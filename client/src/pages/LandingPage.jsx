@@ -122,7 +122,7 @@ export class LandingPage extends Component {
                       <p>Join over 11 million developers, practice coding skills, prepare for interviws, and get hired.</p>
                     </div>
                     <div className="w-100">
-                      <button className="btn btn-hack">Sing Up & Code</button>
+                      <button className="btn btn-hack">Sign Up & Code</button>
                     </div>
                   </div>
                 </div>

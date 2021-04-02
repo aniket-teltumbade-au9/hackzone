@@ -10,35 +10,38 @@ exports.adminRegister = (req, res) => {
   Company.create({ email, password: hashpass, full_name, phone_number, company, company_size, country, role }, (err, result) => {
     if (err) {
       console.log(`RegistrationErr: ${err}`)
-      res.status(501).send({ msg: `RegistrationErr: ${err}` })
+      res.send({ err: `RegistrationErr: ${err}` })
     }
     else if (result) {
       console.log(`RegistrationSuccess: ${result}`)
-      res.status(200).send({ msg: `Registration Successful!` })
+      res.send({ msg: `Registration Successful!` })
     }
 
     else {
       console.log(`UnexpectedErr:`)
-      res.status(502).send({ msg: 'Something went wrong!' })
+      res.send({ err: 'Something went wrong!' })
     }
   })
 }
 
 exports.adminLogin = (req, res) => {
   const { email, password } = req.body
-  Company.find({ email }, (docerr, doc) => {
+  Company.findOne({ email }, (docerr, doc) => {
     if (docerr) {
       console.log("DocErr:", docerr)
-      res.status(402).json({ err: docerr })
+      res.json({ err: docerr })
     }
-    else if (doc) {
-      if (bcrypt.compareSync(password, doc[0].password)) {
+    else if (doc === undefined || doc === null) {
+      res.send({ msg: 'Email not registered!' })
+    } else {
+      console.log(doc)
+      if (bcrypt.compareSync(password, doc.password)) {
         jwt.sign({
           data: email
         }, authpasskey, { expiresIn: '1h' }, (autherr, authtoken) => {
           if (autherr) {
             console.log("AuthErr:", autherr)
-            res.status(402).json({ err: autherr })
+            res.json({ err: autherr })
           }
           else if (authtoken) {
             res.status(200).json({ authtoken })
@@ -46,11 +49,8 @@ exports.adminLogin = (req, res) => {
         })
       }
       else {
-        res.status(501).send({ msg: 'Password doesn\'t match' })
+        res.send({ msg: 'Password doesn\'t match' })
       }
-    }
-    else {
-      res.status(404).send({ msg: 'Something went wrong!' })
     }
   })
 }
@@ -77,15 +77,42 @@ exports.adminProfile = (req, res) => {
 
 
 
+exports.requestCompPassToken = (req, res) => {
+  const { email } = req.body
+  console.log(req.headers.origin)
+  Company.findOne(req.body, (docerr, doc) => {
+    if (doc.email) {
+      let passtoken = uid(6)
+      client.hset(passtoken, doc.email, (rerr, rreply) => {
+        console.log(rreply)
+        resetPassMail(doc.full_name, doc.email, passtoken, "company", req.headers.origin)
+        res.send({ msg: `Check Your email! Further instructions send to your email.` })
+      })
+    }
+    else {
+      res.send({ err: "Email not registered!" })
+    }
+  })
 
+}
 
-
-/* data_dump */
-
-/* exports.passgeneration = (req, res) => {
-  var password = {}
-  for (i = 0; i < req.body.passdata.length; i++) {
-    password[req.body.passdata[i]] = bcrypt.hashSync(req.body.passdata[i], 8)
-  }
-  res.send(password)
-} */
+exports.resetCompPassword = (req, res) => {
+  const { password, passkey } = req.body
+  client.get(passkey, (rerr, rreply) => {
+    if (rerr) {
+      res.send({ msg: "Expired key! Resend Email!" })
+    }
+    else {
+      var hashpass = bcrypt.hashSync(password, 8)
+      Company.findOneAndUpdate({ email: rreply }, { password: hashpass }, (docerr, doc) => {
+        if (docerr) {
+          res.send("Something Went wrong")
+        }
+        else {
+          console.log("doc", doc)
+          res.send({ msg: "Password changed Successfully!" })
+        }
+      })
+    }
+  })
+}

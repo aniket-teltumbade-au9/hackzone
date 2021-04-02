@@ -41,7 +41,7 @@ class ContestLeaderboard extends Component {
                       <td></td>
                     </tr>) : (
                       <tr>
-                        <td>Noone Submitted Anything yet!</td>
+                        <td colSpan="4">Noone Submitted Anything yet!</td>
                       </tr>
                     )
                   }

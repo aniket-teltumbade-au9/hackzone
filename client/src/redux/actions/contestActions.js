@@ -1,13 +1,13 @@
 import axios from "axios";
 import { ADD_CONTEST, LOAD_CONTEST, LOAD_CREATORS_CONTESTS, LOAD_ENDED_CONTESTS, LOAD_LIVE_CONTESTS, LOAD_PROBLEM, LOAD_UPCOMING_CONTESTS } from "../actionTypes";
-
+let tokanstorage = sessionStorage.getItem('token') || localStorage.getItem('token')
 export const addContest = (body) => async (dispatch) => {
   var config = {
     method: 'post',
     url: `${process.env.REACT_APP_API_URL}/contest/add`,
     headers: {
       'Content-Type': 'application/json',
-      'x-access-token': sessionStorage.getItem('token')
+      'x-access-token': tokanstorage
     },
     data: JSON.stringify(body)
   };
@@ -24,7 +24,7 @@ export const liveContests = () => async (dispatch) => {
     url: `${process.env.REACT_APP_API_URL}/contest/live`,
     headers: {
       'Content-Type': 'application/json',
-      'x-access-token': sessionStorage.getItem('token')
+      'x-access-token': tokanstorage
     }
   }
   let res = await axios(config)
@@ -40,7 +40,7 @@ export const upcomingContests = () => async (dispatch) => {
     url: `${process.env.REACT_APP_API_URL}/contest/upcoming`,
     headers: {
       'Content-Type': 'application/json',
-      'x-access-token': sessionStorage.getItem('token')
+      'x-access-token': tokanstorage
     }
   }
   let res = await axios(config)
@@ -56,7 +56,7 @@ export const endedContests = () => async (dispatch) => {
     url: `${process.env.REACT_APP_API_URL}/contest/ended`,
     headers: {
       'Content-Type': 'application/json',
-      'x-access-token': sessionStorage.getItem('token')
+      'x-access-token': tokanstorage
     }
   }
   let res = await axios(config)
@@ -72,7 +72,7 @@ export const loadContest = (body) => async (dispatch) => {
     url: `${process.env.REACT_APP_API_URL}/contest/contest`,
     headers: {
       'Content-Type': 'application/json',
-      'x-access-token': sessionStorage.getItem('token')
+      'x-access-token': tokanstorage
     },
     data: JSON.stringify(body)
   }
@@ -88,7 +88,7 @@ export const loadProblem = (body) => async (dispatch) => {
     url: `${process.env.REACT_APP_API_URL}/contest/contestchallenge`,
     headers: {
       'Content-Type': 'application/json',
-      'x-access-token': sessionStorage.getItem('token')
+      'x-access-token': tokanstorage
     },
     data: JSON.stringify(body)
   }
@@ -112,7 +112,7 @@ export const creatorContests = () => async (dispatch) => {
     method: 'post',
     url: `${process.env.REACT_APP_API_URL}/contest/createdbyme`,
     headers: {
-      'x-access-token': sessionStorage.getItem('token')
+      'x-access-token': tokanstorage
     }
   }
   let res = await axios(config)

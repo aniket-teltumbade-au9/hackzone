@@ -41,7 +41,7 @@ class ContestSubmissions extends Component {
                       <td></td>
                     </tr>) :
                     <tr>
-                      <td>Didn't Submit anything!</td>
+                      <td colspan="4">Didn't Submit anything!</td>
                     </tr>
                   }
                 </tbody>

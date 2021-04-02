@@ -6,6 +6,7 @@ import Loader from '../../components/Layout/Loader'
 import ChallengeSnippet from '../../components/User/Challenge/ChallengeSnippet'
 import { loadContest } from '../../redux/actions/contestActions'
 import { selfContestRank } from '../../redux/actions/leaderboardActions'
+import '../../assets/css/color.scss'
 
 class ContestChallenges extends Component {
   componentDidMount = () => {
@@ -25,7 +26,21 @@ class ContestChallenges extends Component {
           ]} />
         <div className="container">
           <div className="row">
-            <h5 className="display-5 pl-0 pr-3 pt-3 pb-1"><strong>{this.props.match.params.name}</strong></h5>
+            <h5 className="display-5 pl-0 pr-3 pt-3 pb-1">
+              <strong>
+                {this.props.match.params.name}
+              </strong>
+
+            </h5>
+            {this.props.challengeList ?
+              <h5 style={{ verticalAlign: "middle", lineHeight: "60px" }}>
+                <span className="ring-container">
+                  <div className={`ringring ${this.props.challengeList.status}`}></div>
+                  <div className={`circle ${this.props.challengeList.status}`}></div>
+                </span>
+                <sup>{this.props.challengeList.status}</sup>
+              </h5>
+              : null}
           </div>
         </div>
         <div className="container-fluid">

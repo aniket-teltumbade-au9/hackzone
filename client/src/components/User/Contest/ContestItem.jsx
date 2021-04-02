@@ -20,7 +20,7 @@ export default function ContestItem(props) {
             <i className="fa fa-pen fa-stack-1x fa-inverse"></i>
           </span>
         </Link>
-        <Link className="table-link danger">
+        <Link to={`/contests/${props.list.name}/leaderboard/all`} className="table-link danger">
           <span className="fa-stack">
             <i className="fa fa-square fa-stack-2x"></i>
             <i className="fa fa-trophy fa-stack-1x fa-inverse"></i>

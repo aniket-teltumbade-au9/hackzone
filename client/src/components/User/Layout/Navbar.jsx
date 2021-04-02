@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../../../assets/css/color.scss'
+import '../../../assets/css/Navbar.scss'
 import menu from '../../../assets/svg/hamburger.svg'
 import close from '../../../assets/svg/close.svg'
 
@@ -24,24 +25,40 @@ function Navbar(props) {
               </button>
             }
           </div>
-          <div className="d-none col-md-5 h-100 d-md-flex justify-content-between align-items-center">
-            <Link className="hz-link" to='/'>Home</Link>
-            <Link className="hz-link" to='/contests'>Compete</Link>
-            <button className="btn btn-hack" onClick={props.handleLogout}>
-              {props.userData ? props.userData.full_name : "Guest"}
-              <i class="fas fa-sign-out-alt"></i>
-            </button>
-          </div>
+          <ul class="navbar-nav d-none col-md-5 h-100 d-md-flex flex-row justify-content-between align-items-center">
+            <li class="nav-item active">
+              <Link className="nav-link hz-link" to='/'>Home</Link>
+            </li>
+            <li class="nav-item">
+              <Link className="nav-link hz-link" to='/contests'>Compete</Link>
+            </li>
+            <li class="nav-item ">
+              <div class="dropdown text-center">
+                <button class="dropbtn  w-100">{props.userData ? props.userData.full_name : "Guest"}</button>
+                <div class="dropdown-content w-100">
+                  <Link to="/profile">Your Profile</Link>
+                  <button className="btn btn-hack my-1" onClick={props.handleLogout}>
+                    Logout
+                    <i className="fas fa-sign-out-alt"></i>
+                  </button>
+                </div>
+              </div>
+
+            </li>
+          </ul>
         </div>
       </nav>
       {toggle ? (
-        <div className="d-flex col-12 d-md-none flex-column justify-content-around align-items-center text-light bg-hacktone hz-mobile-menu">
+        <ul className="navbar-nav d-flex col-12 d-md-none flex-column justify-content-around align-items-center text-light bg-hacktone hz-mobile-menu" style={{ position: "sticky", top: "60px" }}>
           <Link className="hz-link hz-mobile-menu-item" to='/'>Home</Link>
           <Link className="hz-link hz-mobile-menu-item" to='/contests'>Compete</Link>
-          <button className="btn btn-hack col-12 d-flex justify-content-center align-items-center" style={{ maxHeight: "56px" }} onClick={props.handleLogout}>
+          <button
+            className="btn btn-hack col-12  d-flex justify-content-center align-items-center"
+            style={{ maxHeight: "56px" }}
+            onClick={props.handleLogout}>
             {props.userData ? props.userData.full_name : "Guest"}
           </button>
-        </div>
+        </ul>
       ) : null
       }
       <div className="m-4 w-100">&nbsp;</div>

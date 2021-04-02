@@ -29,7 +29,7 @@ class ChallengeLeaderboard extends Component {
                 <td>{el.users.points}</td>
                 <td></td>
               </tr>) :
-              <td>Noone submitted anything to this challenge yet!</td>
+              <td colspan="4">Noone submitted anything to this challenge yet!</td>
             }
           </tbody>
         </table>
