@@ -19,6 +19,11 @@ class UserLogin extends Component {
   handleLoginSubmit = (e) => {
     e.preventDefault()
     this.props.devLogin(this.state)
+    if (this.props.requestToken.length === 0) {
+      NotificationManager.error("Something went wrong!", 'Oops!', 5000, () => {
+        alert('callback');
+      })
+    }
     e.target.reset()
   }
   handleRemmber = (e) => {
@@ -114,7 +119,7 @@ class UserLogin extends Component {
             <div className="input-group my-3 d-flex justify-content-between">
               <button className="btn btn-outline-success"
                 onClick={this.handleReset}>
-                <i class="fas fa-long-arrow-alt-left"></i>&nbsp;
+                <i className="fas fa-long-arrow-alt-left"></i>&nbsp;
               Back
               </button>
               <button
@@ -122,7 +127,7 @@ class UserLogin extends Component {
                 onClick={this.handleRequestPass}
               >
                 Reset Password&nbsp;
-              <i class="fas fa-sync-alt"></i>
+              <i className="fas fa-sync-alt"></i>
               </button>
             </div>
           </>}

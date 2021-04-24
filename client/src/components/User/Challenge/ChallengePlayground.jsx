@@ -18,26 +18,26 @@ export default function ChallengePlayground(props) {
             {props.paramdata.name}
           </div>
           <div className="w-100 hacktab pt-3 pl-2">
-            <ul class="nav nav-tabs">
-              <li class="nav-item hack-item">
+            <ul className="nav nav-tabs">
+              <li className="nav-item hack-item">
                 <Link
-                  class={`nav-link hacktab-link ${props.activetab === "problem" ? "hacktab-light" : null}`}
+                  className={`nav-link hacktab-link ${props.activetab === "problem" ? "hacktab-light" : null}`}
                   to={`/contests/${props.paramdata.name}/challenges/${props.paramdata.challenge}/problem`}>
                   Problem
                   </Link>
               </li>
               <li
-                class="nav-item">
+                className="nav-item">
                 <Link
-                  class={`nav-link hacktab-link ${props.activetab === "submissions" ? "hacktab-light" : null}`}
+                  className={`nav-link hacktab-link ${props.activetab === "submissions" ? "hacktab-light" : null}`}
                   to={`/contests/${props.paramdata.name}/challenges/${props.paramdata.challenge}/submissions`}>
                   Submissions
                 </Link>
               </li>
               <li
-                class="nav-item">
+                className="nav-item">
                 <Link
-                  class={`nav-link hacktab-link ${props.activetab === "leaderboard" ? "hacktab-light" : null}`}
+                  className={`nav-link hacktab-link ${props.activetab === "leaderboard" ? "hacktab-light" : null}`}
                   to={`/contests/${props.paramdata.name}/challenges/${props.paramdata.challenge}/leaderboard`}>
                   Leaderboard
                 </Link>

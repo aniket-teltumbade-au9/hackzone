@@ -8,7 +8,8 @@ const SubmitSchema = new Schema({
   user: { type: String, required: true },
   score: { type: Number, required: true },
   status: { type: String, required: true },
-  test_result: { type: Array, required: true }
+  test_result: { type: Array, required: true },
+  script: { type: String, required: true }
 }, { timestamps: true })
 
 const SubmitModel = mongoose.model('submit', SubmitSchema)

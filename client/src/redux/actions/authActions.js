@@ -20,7 +20,6 @@ export const devRegister = (body) => async (dispatch) => {
 }
 
 export const devLogin = (body) => async (dispatch) => {
-
   const data = JSON.stringify(body)
   const config = {
     method: 'post',
@@ -32,7 +31,6 @@ export const devLogin = (body) => async (dispatch) => {
   };
 
   const result = await axios(config)
-  console.log(result)
   if (result.data.err) {
     dispatch({
       type: LOGIN_DEVELOPER,
@@ -55,9 +53,7 @@ export const devLogin = (body) => async (dispatch) => {
   }
 
 }
-
 export const devRequestPass = (body) => async (dispatch) => {
-
   const data = JSON.stringify(body)
   const config = {
     method: 'post',
@@ -124,16 +120,13 @@ export const compRegister = (body) => async (dispatch) => {
   };
 
   const result = await axios(config)
-
   dispatch({
     type: REGISTER_COMPANY,
     payload: result.data
   })
 }
 
-
 export const compLogin = (body) => async (dispatch) => {
-
   const data = JSON.stringify(body)
   const config = {
     method: 'post',
@@ -151,7 +144,7 @@ export const compLogin = (body) => async (dispatch) => {
       payload: { isAuth: false, userLogin: null }
     })
   }
-  else {
+  else if (result.data.authtoken) {
     if (body.remember === false) {
       sessionStorage.setItem('token', result.data.authtoken)
       sessionStorage.setItem('role', 'company')
@@ -168,7 +161,6 @@ export const compLogin = (body) => async (dispatch) => {
 
 }
 export const compRequestPass = (body) => async (dispatch) => {
-
   const data = JSON.stringify(body)
   const config = {
     method: 'post',

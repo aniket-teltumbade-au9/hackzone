@@ -22,7 +22,6 @@ var client = redis.createClient({
 client.on('connect', function () {
   console.log(`Redis: ${chalk.bold.green("connected")}`);
 });
-
 exports.userRegister = (req, res) => {
   const { full_name, email, password } = req.body
   var hashpass = bcrypt.hashSync(password, 8)
@@ -40,10 +39,10 @@ exports.userLogin = (req, res) => {
     if (docerr) {
       res.json({ err: docerr })
     }
-    else if (doc === undefined || doc === null) {
+    else if (doc === null || doc === undefined) {
       res.send({ err: 'Email not registered!' })
-    } else {
-      console.log("hey", doc)
+    }
+    else {
       if (bcrypt.compareSync(password, doc.password)) {
         jwt.sign({
           data: email

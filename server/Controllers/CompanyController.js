@@ -1,10 +1,12 @@
 const Company = require('../Models/CompanyModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const chalk = require('chalk');
+const { uid } = require('rand-token')
+const resetPassMail = require('../functions/resetPassMail');
 const authpasskey = process.env.AUTH_PASS_KEY
 var redis = require('redis');
 var retryStrategy = require("node-redis-retry-strategy");
-const chalk = require('chalk');
 
 var client = redis.createClient({
   host: 'redis.acme.com',
@@ -23,45 +25,32 @@ client.on('connect', function () {
 exports.adminRegister = (req, res) => {
   const { email, password, full_name, phone_number, company, company_size, country, role } = req.body
   let hashpass = bcrypt.hashSync(password, 8)
-  console.log("hashpass:", hashpass)
   Company.create({ email, password: hashpass, full_name, phone_number, company, company_size, country, role }, (err, result) => {
-    if (err) {
-      console.log(`RegistrationErr: ${err}`)
-      res.send({ err: `RegistrationErr: ${err}` })
-    }
+    if (err) res.send({ err: `RegistrationErr: ${err}` })
     else if (result) {
-      console.log(`RegistrationSuccess: ${result}`)
       res.send({ msg: `Registration Successful!` })
     }
-
-    else {
-      console.log(`UnexpectedErr:`)
-      res.send({ err: 'Something went wrong!' })
-    }
+    else res.send({ err: 'Something went wrong!' })
   })
 }
-
 exports.adminLogin = (req, res) => {
   const { email, password } = req.body
   Company.findOne({ email }, (docerr, doc) => {
     if (docerr) {
-      console.log("DocErr:", docerr)
       res.json({ err: docerr })
     }
     else if (doc === undefined || doc === null) {
       res.send({ msg: 'Email not registered!' })
-    } else {
-      console.log(doc)
+    }
+    else {
       if (bcrypt.compareSync(password, doc.password)) {
         jwt.sign({
           data: email
         }, authpasskey, { expiresIn: '1h' }, (autherr, authtoken) => {
-          if (autherr) {
-            console.log("AuthErr:", autherr)
-            res.json({ err: autherr })
-          }
-          else if (authtoken) {
+          if (authtoken) {
             res.status(200).json({ authtoken })
+          } else {
+            res.json({ err: autherr })
           }
         })
       }

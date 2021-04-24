@@ -25,17 +25,17 @@ function Navbar(props) {
               </button>
             }
           </div>
-          <ul class="navbar-nav d-none col-md-5 h-100 d-md-flex flex-row justify-content-between align-items-center">
-            <li class="nav-item active">
+          <ul className="navbar-nav d-none col-md-5 h-100 d-md-flex flex-row justify-content-between align-items-center">
+            <li className="nav-item active">
               <Link className="nav-link hz-link" to='/'>Home</Link>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <Link className="nav-link hz-link" to='/contests'>Compete</Link>
             </li>
-            <li class="nav-item ">
-              <div class="dropdown text-center">
-                <button class="dropbtn  w-100">{props.userData ? props.userData.full_name : "Guest"}</button>
-                <div class="dropdown-content w-100">
+            <li className="nav-item ">
+              <div className="dropdown text-center">
+                <button className="dropbtn  w-100">{props.userData ? props.userData.full_name : "Guest"}</button>
+                <div className="dropdown-content w-100">
                   <Link to="/profile">Your Profile</Link>
                   <button className="btn btn-hack my-1" onClick={props.handleLogout}>
                     Logout

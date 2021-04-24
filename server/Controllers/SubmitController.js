@@ -20,7 +20,6 @@ exports.submitScript = (req, res) => {
     }
     else {
       fs.writeFileSync(path, script)
-      console.log('test 1 - path:', path)
       for (i = 0; i < test_cases.length; i++) {
         let response = scriptExecutor(command, path, test_cases[i].test_input)
         if (response.message) {
@@ -39,7 +38,7 @@ exports.submitScript = (req, res) => {
       let score = points * chances
       let status = score === points ? "Accepted" : "Wrong Answer"
       cleanupCallback()
-      Submit.create({ contest, challenge, user, score, status, test_result }, (sdocerr, sdoc) => {
+      Submit.create({ contest, challenge, user, score, status, test_result, script }, (sdocerr, sdoc) => {
         if (sdocerr) {
           res.status(400).send({ msg: `SubmitErr: ${sdocerr}` })
         }

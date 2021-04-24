@@ -6,8 +6,12 @@ export default function TabModel(props) {
     <>
       <ul className="nav nav-tabs col-12" id="myTab" role="tablist">
         {props.tabdata.map((el, index) =>
-          <li className="nav-item" role="presentation"
-            onClick={() => setTabmodel(index)}>
+          <li
+            className="nav-item"
+            role="presentation"
+            key={index}
+            onClick={() => setTabmodel(index)}
+          >
             <button
               className={`nav-link ${tabmodel === index ? "active" : null}`}
               id="profile-tab"
